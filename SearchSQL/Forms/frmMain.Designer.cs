@@ -59,13 +59,14 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.txtContentOrObjectToFind = new System.Windows.Forms.TextBox();
-            this.treeViewOfObjects = new System.Windows.Forms.TreeView();
+            this.treeViewObjects = new System.Windows.Forms.TreeView();
             this.lblFooterTotal = new System.Windows.Forms.Label();
             this.tabControlContent = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanelPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -304,24 +305,24 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelPrincipal
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.5F));
-            this.tableLayoutPanel1.Controls.Add(this.txtContentOrObjectToFind, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.treeViewOfObjects, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblFooterTotal, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.tabControlContent, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 426);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanelPrincipal.ColumnCount = 2;
+            this.tableLayoutPanelPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.5F));
+            this.tableLayoutPanelPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.5F));
+            this.tableLayoutPanelPrincipal.Controls.Add(this.txtContentOrObjectToFind, 0, 0);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.treeViewObjects, 0, 1);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.lblFooterTotal, 0, 2);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.tabControlContent, 1, 0);
+            this.tableLayoutPanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelPrincipal.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
+            this.tableLayoutPanelPrincipal.RowCount = 3;
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 426);
+            this.tableLayoutPanelPrincipal.TabIndex = 0;
             // 
             // txtContentOrObjectToFind
             // 
@@ -338,14 +339,14 @@
             this.txtContentOrObjectToFind.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContentOrObjectToFind_KeyPress);
             this.txtContentOrObjectToFind.Leave += new System.EventHandler(this.txtContentFind_Leave);
             // 
-            // treeViewOfObjects
+            // treeViewObjects
             // 
-            this.treeViewOfObjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewOfObjects.Location = new System.Drawing.Point(3, 33);
-            this.treeViewOfObjects.Name = "treeViewOfObjects";
-            this.treeViewOfObjects.Size = new System.Drawing.Size(254, 370);
-            this.treeViewOfObjects.TabIndex = 2;
-            this.treeViewOfObjects.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewOfObjects_NodeMouseDoubleClick);
+            this.treeViewObjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewObjects.Location = new System.Drawing.Point(3, 33);
+            this.treeViewObjects.Name = "treeViewObjects";
+            this.treeViewObjects.Size = new System.Drawing.Size(254, 370);
+            this.treeViewObjects.TabIndex = 2;
+            this.treeViewObjects.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewOfObjects_NodeMouseDoubleClick);
             // 
             // lblFooterTotal
             // 
@@ -363,25 +364,35 @@
             this.tabControlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlContent.Location = new System.Drawing.Point(263, 3);
             this.tabControlContent.Name = "tabControlContent";
-            this.tableLayoutPanel1.SetRowSpan(this.tabControlContent, 2);
+            this.tableLayoutPanelPrincipal.SetRowSpan(this.tabControlContent, 2);
             this.tabControlContent.SelectedIndex = 0;
             this.tabControlContent.Size = new System.Drawing.Size(534, 400);
             this.tabControlContent.TabIndex = 4;
-            this.tabControlContent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabControlContent_KeyDown);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(526, 372);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanelPrincipal);
             this.Controls.Add(this.menuStrip1);
             this.Name = "frmMain";
-            this.Text = "Search any content in your SQL Server database, simple and easy";
+            this.Text = "Search objects and contents in your SQL Server database easily";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanelPrincipal.ResumeLayout(false);
+            this.tableLayoutPanelPrincipal.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,10 +430,11 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TreeView treeViewOfObjects;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPrincipal;
+        private System.Windows.Forms.TreeView treeViewObjects;
         private System.Windows.Forms.Label lblFooterTotal;
         private System.Windows.Forms.TabControl tabControlContent;
         private System.Windows.Forms.TextBox txtContentOrObjectToFind;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }

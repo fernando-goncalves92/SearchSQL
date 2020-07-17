@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Search;
+using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace SearchSQL
 {
@@ -14,15 +18,16 @@ namespace SearchSQL
         {
             InitializeComponent();
 
+            // temp
+            _treeView = new SqlTreeView(treeViewObjects);
+
+            SetImageListTabControl();
+
             BuildTreeView();
         }
 
         private void BuildTreeView()
         {
-            // temp
-            if (_treeView == null)            
-                _treeView = new SqlTreeView(treeViewOfObjects);
-
             SetNumberOfFoundObjects(_treeView.BuildNodes());
         }
 
@@ -31,9 +36,9 @@ namespace SearchSQL
             lblFooterTotal.Text = $"Found objects: { numberOfObjects }";
         }
 
-        private void AddTabPage(string objectName, string content)
+        private void AddTabPage(DatabaseObject obj)
         {
-            var tabPageName = $"tabPage{ objectName }";
+            var tabPageName = $"tabPage{ obj.Name }";
 
             if (tabControlContent.TabPages.ContainsKey(tabPageName))
             {
@@ -42,13 +47,45 @@ namespace SearchSQL
                 return;
             }
 
-            var tabPage = new TabPage() { Name = tabPageName, Text = objectName };
-            var textBox = new TextBox() { Dock = DockStyle.Fill, Multiline = true, Text = content };
+            var tabPage = new TabPage() { Name = tabPageName, Text = obj.Name, ImageIndex = _treeView.GetImageIndex(obj) };
 
-            tabPage.Controls.Add(textBox);
+            var elementHost = new ElementHost() { Dock = DockStyle.Fill, TabIndex = 1 };
+
+            var textEditor = new TextEditor() 
+            { 
+                ShowLineNumbers = true, 
+                SyntaxHighlighting = (IHighlightingDefinition)new HighlightingDefinitionTypeConverter().ConvertFrom("TSQL"),
+                FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                FontSize = 13.75f,
+                IsReadOnly = true,
+                Text = obj.Content
+            };
+
+            textEditor.KeyDown += TextEditor_KeyDown;
+
+            SearchPanel.Install(textEditor);
+
+            elementHost.Child = textEditor;
+
+            tabPage.Controls.Add(elementHost);
 
             tabControlContent.TabPages.Add(tabPage);
             tabControlContent.SelectedTab = tabControlContent.TabPages[tabPageName];
+        }
+
+        private void TextEditor_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.S)
+            {
+                var fileName = _treeView.SaveFile();
+
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    var textEditor = sender as TextEditor;
+
+                    textEditor.Save(fileName);
+                }
+            }
         }
 
         private void RemoveTabPage(string tabPageName)
@@ -62,9 +99,9 @@ namespace SearchSQL
                 RemoveTabPage(tab.Name);
         }
 
-        private void SaveTabPage()
+        private void SetImageListTabControl()
         {
-            _treeView.SaveFile();
+            tabControlContent.ImageList = _treeView.LoadImageList();
         }
 
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
@@ -73,16 +110,6 @@ namespace SearchSQL
 
             if (e.KeyChar == ENTER)
                 SetNumberOfFoundObjects(_treeView.FindContentAndObjects(txtContentOrObjectToFind.Text));
-        }
-
-        private void tabControlContent_KeyDown(object sender, KeyEventArgs e)
-        {
-            SaveTabPage();
-
-            //if (e.Control && e.KeyCode == Keys.S)
-            //{
-            //    SaveTabPage();
-            //}
         }
 
         private void txtContentFind_Enter(object sender, EventArgs e)
@@ -110,12 +137,7 @@ namespace SearchSQL
             var databaseObject = e.Node.Tag as DatabaseObject;
 
             if (databaseObject != null)            
-                AddTabPage(databaseObject.Name, databaseObject.Content);
-        }
-
-        private void tabPage1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-
+                AddTabPage(databaseObject);
         }
     }
 }
