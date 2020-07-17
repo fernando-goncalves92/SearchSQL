@@ -25,40 +25,7 @@ namespace SearchSQL
 
             _treeView = treeview;
 
-            LoadImagesTreeView();
-        }
-
-        private void LoadImagesTreeView()
-        {
-            ImageList images = new ImageList();
-
-            images.Images.Add(Image.FromFile(@"images\sql\folder.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\procedure.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\scalarFunction.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\tableFunction.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\view.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\trigger.png"));
-
-            _treeView.ImageList = images;
-        }
-
-        private int GetImageIndexByType(SqlDatabaseObjectType type)
-        {
-            switch(type)
-            {
-                case SqlDatabaseObjectType.Procedure: 
-                    return PROCEDURE_ICON_INDICE;
-                case SqlDatabaseObjectType.ScalarFunction: 
-                    return SCALAR_FUNCTION_ICON_INDICE;
-                case SqlDatabaseObjectType.TableFunction: 
-                    return TABLE_FUNCTION_ICON_INDICE;
-                case SqlDatabaseObjectType.View: 
-                    return VIEW_ICON_INDICE;
-                case SqlDatabaseObjectType.Trigger: 
-                    return TRIGGER_ICON_INDICE;
-                default: 
-                    return -1;
-            }
+            LoadImageList();
         }
 
         private TreeNode GetRootNodeByType(SqlDatabaseObjectType type)
@@ -108,8 +75,8 @@ namespace SearchSQL
                         rootNode.Nodes.Add(new TreeNode()
                         {
                             Text = obj.Name,
-                            ImageIndex = GetImageIndexByType(obj.Type),
-                            SelectedImageIndex = GetImageIndexByType(obj.Type),
+                            ImageIndex = GetImageIndex(obj),
+                            SelectedImageIndex = GetImageIndex(obj),
                             Tag = obj                            
                         });
                 }
@@ -150,8 +117,8 @@ namespace SearchSQL
                         rootNode.Nodes.Add(new TreeNode()
                         {
                             Text = obj.Name,
-                            ImageIndex = GetImageIndexByType(obj.Type),
-                            SelectedImageIndex = GetImageIndexByType(obj.Type),
+                            ImageIndex = GetImageIndex(obj),
+                            SelectedImageIndex = GetImageIndex(obj),
                             Tag = obj
                         });
                 }
@@ -194,7 +161,7 @@ namespace SearchSQL
             return numberOfObjects;
         }
 
-        public void SaveFile()
+        public string SaveFile()
         {
             using (SaveFileDialog dialog = new SaveFileDialog())
             {
@@ -204,13 +171,42 @@ namespace SearchSQL
                 dialog.Title = "Save the object";
                 dialog.ShowDialog();
 
-                if (!string.IsNullOrEmpty(dialog.FileName))
-                {
-                    using (FileStream fs = (FileStream)dialog.OpenFile())
-                    {
-                        fs.Close();
-                    }
-                }
+                return dialog.FileName;
+            }
+        }
+
+        public ImageList LoadImageList()
+        {
+            ImageList images = new ImageList();
+
+            images.Images.Add(Image.FromFile(@"images\sql\folder.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\procedure.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\scalarFunction.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\tableFunction.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\view.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\trigger.png"));
+
+            _treeView.ImageList = images;
+
+            return images;
+        }
+
+        public int GetImageIndex(DatabaseObject obj)
+        {
+            switch ((obj as SqlDatabaseObject).Type)
+            {
+                case SqlDatabaseObjectType.Procedure:
+                    return PROCEDURE_ICON_INDICE;
+                case SqlDatabaseObjectType.ScalarFunction:
+                    return SCALAR_FUNCTION_ICON_INDICE;
+                case SqlDatabaseObjectType.TableFunction:
+                    return TABLE_FUNCTION_ICON_INDICE;
+                case SqlDatabaseObjectType.View:
+                    return VIEW_ICON_INDICE;
+                case SqlDatabaseObjectType.Trigger:
+                    return TRIGGER_ICON_INDICE;
+                default:
+                    return -1;
             }
         }
     }

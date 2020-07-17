@@ -12,7 +12,48 @@ namespace SearchSQL
 
         private string GetObjectBody(string objectName)
         {
-            return string.Empty;
+            string objectBody = string.Empty;
+
+            var query = new StringBuilder();
+
+            query.Append("  DECLARE @COUNTER INT,                                                                 ").Append(Environment.NewLine);
+            query.Append("          @ROWS INT,                                                                    ").Append(Environment.NewLine);
+            query.Append("          @CONTENT VARCHAR(MAX)                                                         ").Append(Environment.NewLine);
+                                                                                                                  
+            query.Append("  SET @COUNTER = 1                                                                      ").Append(Environment.NewLine);
+            query.Append($" SET @ROWS = (SELECT COUNT(*) FROM SYSCOMMENTS WHERE ID = OBJECT_ID('{ objectName }')) ").Append(Environment.NewLine);
+            query.Append("  SET @CONTENT = ''                                                                     ").Append(Environment.NewLine);
+                                                                                                                  
+            query.Append("  WHILE @COUNTER <= @ROWS                                                               ").Append(Environment.NewLine);
+            query.Append("  BEGIN                                                                                 ").Append(Environment.NewLine);            
+                                                                                                                  
+            query.Append("     SELECT                                                                             ").Append(Environment.NewLine);            
+            query.Append("         @CONTENT = @CONTENT + TEXT                                                     ").Append(Environment.NewLine);
+            query.Append("     FROM                                                                               ").Append(Environment.NewLine);
+            query.Append("         SYSCOMMENTS                                                                    ").Append(Environment.NewLine);
+            query.Append("     WHERE                                                                              ").Append(Environment.NewLine);
+            query.Append($"        ID = OBJECT_ID('{ objectName }')                                               ").Append(Environment.NewLine);
+            query.Append("     AND COLID = @COUNTER                                                               ").Append(Environment.NewLine);
+                            
+            query.Append("     SET @COUNTER = @COUNTER + 1                                                        ").Append(Environment.NewLine);
+            query.Append("  END                                                                                   ").Append(Environment.NewLine);
+
+            query.Append("  SELECT @CONTENT AS CONTENT                                                            ").Append(Environment.NewLine);
+
+            using (SqlConnection connection = new SqlConnection(STRING_CONNECTION_TEMP))
+            {
+                connection.Open();
+
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query.ToString();
+
+                    objectBody = command.ExecuteScalar().ToString();
+                    
+                }
+            }
+
+            return objectBody;
         }
 
         public IEnumerable<SqlDatabaseObject> FindContentAndObjects(string word)
@@ -57,7 +98,11 @@ namespace SearchSQL
             }
             catch (Exception error)
             {
-                MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Error trying to find objects and contents in database.\n\nError Message: { error.Message } \n\nStack Trace: { error.StackTrace }",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return objectsAndContents;
