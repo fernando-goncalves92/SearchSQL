@@ -15,9 +15,9 @@ namespace SearchSQL
             return string.Empty;
         }
 
-        public IEnumerable<DatabaseObject> FindContentAndObjects(string word)
+        public IEnumerable<SqlDatabaseObject> FindContentAndObjects(string word)
         {
-            var objectsAndContents = new List<DatabaseObject>();
+            var objectsAndContents = new List<SqlDatabaseObject>();
 
             try
             {   
@@ -47,9 +47,9 @@ namespace SearchSQL
                         {
                             while (reader.Read())
                             {
-                                Enum.TryParse<DatabaseObjectType>(reader["TYPE"].ToString(), out var convertedType);
+                                Enum.TryParse<SqlDatabaseObjectType>(reader["TYPE"].ToString(), out var convertedType);
 
-                                objectsAndContents.Add(new DatabaseObject(reader["NAME"].ToString(), GetObjectBody(reader["NAME"].ToString()), convertedType));
+                                objectsAndContents.Add(new SqlDatabaseObject(reader["NAME"].ToString(), GetObjectBody(reader["NAME"].ToString()), convertedType));
                             }
                         }
                     }
@@ -63,9 +63,9 @@ namespace SearchSQL
             return objectsAndContents;
         }
 
-        public IEnumerable<DatabaseObject> GetObjectsFromDb()
+        public IEnumerable<SqlDatabaseObject> GetObjectsFromDb()
         {
-            var objects = new List<DatabaseObject>();
+            var objects = new List<SqlDatabaseObject>();
 
             try
             {   
@@ -73,14 +73,14 @@ namespace SearchSQL
 
                 query.Append("  SELECT                                                               ").Append(Environment.NewLine);
                 query.Append("      NAME,                                                            ").Append(Environment.NewLine);
-                query.Append($"     CASE TYPE WHEN 'P'  THEN '{ DatabaseObjectType.Procedure }'      ").Append(Environment.NewLine);                
-                query.Append($"               WHEN 'TR' THEN '{ DatabaseObjectType.Trigger }'        ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'FN' THEN '{ DatabaseObjectType.ScalarFunction }' ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'IS' THEN '{ DatabaseObjectType.ScalarFunction }' ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'V'  THEN '{ DatabaseObjectType.View }'           ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'TF' THEN '{ DatabaseObjectType.TableFunction }'  ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'IF' THEN '{ DatabaseObjectType.TableFunction }'  ").Append(Environment.NewLine);
-                query.Append($"               ELSE '{ DatabaseObjectType.Unknown }'                  ").Append(Environment.NewLine);
+                query.Append($"     CASE TYPE WHEN 'P'  THEN '{ SqlDatabaseObjectType.Procedure }'           ").Append(Environment.NewLine);                
+                query.Append($"               WHEN 'TR' THEN '{ SqlDatabaseObjectType.Trigger }'             ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'FN' THEN '{ SqlDatabaseObjectType.ScalarFunction }'      ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'IS' THEN '{ SqlDatabaseObjectType.ScalarFunction }'      ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'V'  THEN '{ SqlDatabaseObjectType.View }'                ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'TF' THEN '{ SqlDatabaseObjectType.TableFunction }'       ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'IF' THEN '{ SqlDatabaseObjectType.TableFunction }'       ").Append(Environment.NewLine);
+                query.Append($"               ELSE '{ SqlDatabaseObjectType.Unknown }'                       ").Append(Environment.NewLine);
                 query.Append("      END AS TYPE                                                      ").Append(Environment.NewLine);
                 query.Append("  FROM                                                                 ").Append(Environment.NewLine);
                 query.Append("      SYS.objects                                                      ").Append(Environment.NewLine);
@@ -101,9 +101,9 @@ namespace SearchSQL
                         {
                             while (reader.Read())
                             {
-                                Enum.TryParse<DatabaseObjectType>(reader["TYPE"].ToString(), out var convertedType);
+                                Enum.TryParse<SqlDatabaseObjectType>(reader["TYPE"].ToString(), out var convertedType);
 
-                                objects.Add(new DatabaseObject(reader["NAME"].ToString(), GetObjectBody(reader["NAME"].ToString()), convertedType));
+                                objects.Add(new SqlDatabaseObject(reader["NAME"].ToString(), GetObjectBody(reader["NAME"].ToString()), convertedType));
                             }
                         }
                     }

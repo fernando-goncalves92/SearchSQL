@@ -1,6 +1,6 @@
 ﻿namespace SearchSQL
 {
-    public interface ITreeView
+    public interface ITreeView : ISaveFile
     {
         int BuildNodes();
         int FindContentAndObjects(string word);

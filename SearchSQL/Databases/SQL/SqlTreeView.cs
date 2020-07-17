@@ -3,17 +3,18 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace SearchSQL
 {
     public class SqlTreeView : ITreeView
     {
-        private const int FOLDER_ICON = 0;
-        private const int PROCEDURE_ICON = 1;
-        private const int SCALAR_FUNCTION_ICON = 2;
-        private const int TABLE_FUNCTION_ICON = 3;
-        private const int VIEW_ICON = 4;
-        private const int TRIGGER_ICON = 5;
+        private const int FOLDER_ICON_INDICE = 0;
+        private const int PROCEDURE_ICON_INDICE = 1;
+        private const int SCALAR_FUNCTION_ICON_INDICE = 2;
+        private const int TABLE_FUNCTION_ICON_INDICE = 3;
+        private const int VIEW_ICON_INDICE = 4;
+        private const int TRIGGER_ICON_INDICE = 5;
 
         private TreeView _treeView;
         private SqlDatabase _db;
@@ -41,29 +42,29 @@ namespace SearchSQL
             _treeView.ImageList = images;
         }
 
-        private int GetImageIndexByType(DatabaseObjectType type)
+        private int GetImageIndexByType(SqlDatabaseObjectType type)
         {
             switch(type)
             {
-                case DatabaseObjectType.Procedure: 
-                    return PROCEDURE_ICON;
-                case DatabaseObjectType.ScalarFunction: 
-                    return SCALAR_FUNCTION_ICON;
-                case DatabaseObjectType.TableFunction: 
-                    return TABLE_FUNCTION_ICON;
-                case DatabaseObjectType.View: 
-                    return VIEW_ICON;
-                case DatabaseObjectType.Trigger: 
-                    return TRIGGER_ICON;
+                case SqlDatabaseObjectType.Procedure: 
+                    return PROCEDURE_ICON_INDICE;
+                case SqlDatabaseObjectType.ScalarFunction: 
+                    return SCALAR_FUNCTION_ICON_INDICE;
+                case SqlDatabaseObjectType.TableFunction: 
+                    return TABLE_FUNCTION_ICON_INDICE;
+                case SqlDatabaseObjectType.View: 
+                    return VIEW_ICON_INDICE;
+                case SqlDatabaseObjectType.Trigger: 
+                    return TRIGGER_ICON_INDICE;
                 default: 
                     return -1;
             }
         }
 
-        private TreeNode GetRootNodeByType(DatabaseObjectType type)
+        private TreeNode GetRootNodeByType(SqlDatabaseObjectType type)
         {
             foreach (TreeNode node in _treeView.Nodes)
-                if ((DatabaseObjectType)node.Tag == type)                
+                if ((SqlDatabaseObjectType)node.Tag == type)                
                     return node;
 
             return null;
@@ -76,11 +77,11 @@ namespace SearchSQL
 
         private void BuildRootNodes()
         {
-            var procedures = new TreeNode() { Text = "Procedures", ImageIndex = FOLDER_ICON, Tag = DatabaseObjectType.Procedure };
-            var scalarFunctions = new TreeNode() { Text = "Scalar Functions", ImageIndex = FOLDER_ICON, Tag = DatabaseObjectType.ScalarFunction };
-            var tableFunctions = new TreeNode() { Text = "Table Functions", ImageIndex = FOLDER_ICON, Tag = DatabaseObjectType.TableFunction };
-            var triggers = new TreeNode() { Text = "Triggers", ImageIndex = FOLDER_ICON, Tag = DatabaseObjectType.Trigger };
-            var views = new TreeNode() { Text = "Views", ImageIndex = FOLDER_ICON, Tag = DatabaseObjectType.View };
+            var procedures = new TreeNode() { Text = "Procedures", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Procedure };
+            var scalarFunctions = new TreeNode() { Text = "Scalar Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.ScalarFunction };
+            var tableFunctions = new TreeNode() { Text = "Table Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.TableFunction };
+            var triggers = new TreeNode() { Text = "Triggers", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Trigger };
+            var views = new TreeNode() { Text = "Views", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.View };
 
             _treeView.Nodes.Add(procedures);
             _treeView.Nodes.Add(scalarFunctions);
@@ -89,15 +90,15 @@ namespace SearchSQL
             _treeView.Nodes.Add(views);
         }
 
-        private void BuildNodes(IEnumerable<DatabaseObject> objects)
+        private void BuildNodes(IEnumerable<SqlDatabaseObject> objects)
         {
             try
             {
+                _treeView.BeginUpdate();
+
                 ClearNodes();
 
                 BuildRootNodes();
-
-                _treeView.BeginUpdate();
 
                 foreach (var obj in objects)
                 {
@@ -131,12 +132,12 @@ namespace SearchSQL
 
             try
             {
+                _treeView.BeginUpdate();
+
                 ClearNodes();
 
                 BuildRootNodes();
 
-                _treeView.BeginUpdate();
-                
                 var objects = _db.GetObjectsFromDb();
 
                 numberOfObjects = objects.Count();
@@ -175,7 +176,7 @@ namespace SearchSQL
 
             try
             {
-                IEnumerable<DatabaseObject> objects = _db.FindContentAndObjects(word);
+                IEnumerable<SqlDatabaseObject> objects = _db.FindContentAndObjects(word);
 
                 numberOfObjects = objects.Count();
 
@@ -191,6 +192,26 @@ namespace SearchSQL
             }
 
             return numberOfObjects;
+        }
+
+        public void SaveFile()
+        {
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.InitialDirectory = @"C:\";
+                dialog.RestoreDirectory = true;
+                dialog.Filter = "SQL file |*.sql";
+                dialog.Title = "Save the object";
+                dialog.ShowDialog();
+
+                if (!string.IsNullOrEmpty(dialog.FileName))
+                {
+                    using (FileStream fs = (FileStream)dialog.OpenFile())
+                    {
+                        fs.Close();
+                    }
+                }
+            }
         }
     }
 }

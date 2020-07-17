@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace SearchSQL
 {
     public partial class frmMain : Form
     {
+        private const string PLACE_HOLDER_MESSAGE = "Type the content or object you're looking for...";
+
         private ITreeView _treeView;
 
         public frmMain()
@@ -27,10 +28,10 @@ namespace SearchSQL
 
         private void SetNumberOfFoundObjects(int numberOfObjects)
         {
-            lblFooterTotal.Text = $"Found objects: { numberOfObjects.ToString() }";
+            lblFooterTotal.Text = $"Found objects: { numberOfObjects }";
         }
 
-        private void AddTabPage(string objectName)
+        private void AddTabPage(string objectName, string content)
         {
             var tabPageName = $"tabPage{ objectName }";
 
@@ -42,7 +43,7 @@ namespace SearchSQL
             }
 
             var tabPage = new TabPage() { Name = tabPageName, Text = objectName };
-            var textBox = new TextBox() { Dock = DockStyle.Fill, Multiline = true };
+            var textBox = new TextBox() { Dock = DockStyle.Fill, Multiline = true, Text = content };
 
             tabPage.Controls.Add(textBox);
 
@@ -63,22 +64,7 @@ namespace SearchSQL
 
         private void SaveTabPage()
         {
-            using (SaveFileDialog dialog = new SaveFileDialog())
-            {
-                dialog.InitialDirectory = @"C:\";
-                dialog.RestoreDirectory = true;
-                dialog.Filter = "SQL file |*.sql";
-                dialog.Title = "Save the object";
-                dialog.ShowDialog();
-
-                if (!string.IsNullOrEmpty(dialog.FileName))
-                {
-                    using (FileStream fs = (FileStream)dialog.OpenFile())
-                    {
-                        fs.Close();
-                    }
-                }
-            }
+            _treeView.SaveFile();
         }
 
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
@@ -101,16 +87,22 @@ namespace SearchSQL
 
         private void txtContentFind_Enter(object sender, EventArgs e)
         {
-            txtContentOrObjectToFind.Clear();
-            txtContentOrObjectToFind.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            txtContentOrObjectToFind.ForeColor = Color.Black;
+            if (txtContentOrObjectToFind.Text == PLACE_HOLDER_MESSAGE)
+            {
+                txtContentOrObjectToFind.Clear();
+                txtContentOrObjectToFind.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+                txtContentOrObjectToFind.ForeColor = Color.Black;
+            }
         }
 
         private void txtContentFind_Leave(object sender, EventArgs e)
         {
-            txtContentOrObjectToFind.Text = "Type the content or object you're looking for...";
-            txtContentOrObjectToFind.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            txtContentOrObjectToFind.ForeColor = Color.Gray;
+            if (string.IsNullOrEmpty(txtContentOrObjectToFind.Text))
+            {
+                txtContentOrObjectToFind.Text = PLACE_HOLDER_MESSAGE;
+                txtContentOrObjectToFind.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+                txtContentOrObjectToFind.ForeColor = Color.Gray;
+            }
         }
 
         private void treeViewOfObjects_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -118,7 +110,7 @@ namespace SearchSQL
             var databaseObject = e.Node.Tag as DatabaseObject;
 
             if (databaseObject != null)            
-                AddTabPage(databaseObject.Name);
+                AddTabPage(databaseObject.Name, databaseObject.Content);
         }
 
         private void tabPage1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

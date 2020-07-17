@@ -1,6 +1,6 @@
 ﻿namespace SearchSQL
 {
-    public enum DatabaseObjectType
+    public enum SqlDatabaseObjectType
     {
         Procedure, 
         ScalarFunction,

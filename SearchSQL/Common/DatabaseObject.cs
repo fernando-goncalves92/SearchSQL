@@ -1,18 +1,14 @@
-﻿using System.Windows.Forms;
-
-namespace SearchSQL
+﻿namespace SearchSQL
 {
-    public class DatabaseObject
+    public abstract class DatabaseObject
     {
-        public DatabaseObject(string name, string content, DatabaseObjectType type)
+        public DatabaseObject(string name, string content)
         {
             Name = name;
             Content = content;
-            Type = type;
         }
 
         public string Name { get; private set; }
         public string Content { get; private set; }
-        public DatabaseObjectType Type { get; private set; }
     }
 }
