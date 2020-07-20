@@ -74,7 +74,12 @@ namespace SearchSQL
             const int ENTER = 13;
 
             if (e.KeyChar == ENTER)
-                SetNumberOfFoundObjects(_builder.FindContentAndObjects(txtContentOrObjectToFind.Text));
+            {
+                if (string.IsNullOrEmpty(txtContentOrObjectToFind.Text))
+                    SetNumberOfFoundObjects(_builder.BuildTreeViewNodes());
+                else
+                    SetNumberOfFoundObjects(_builder.FindContentAndObjects(txtContentOrObjectToFind.Text));
+            }
         }
 
         /// <summary>
@@ -139,7 +144,8 @@ namespace SearchSQL
             
             var databaseObj = tabControl.TabPages[tabControl.SelectedIndex].Tag as DatabaseObject;
 
-            SetObjectDetails(databaseObj);
+            if (databaseObj != null)
+                SetObjectDetails(databaseObj);
         }
     }
 }

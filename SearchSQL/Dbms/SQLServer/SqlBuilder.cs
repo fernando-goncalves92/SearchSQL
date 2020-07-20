@@ -114,13 +114,17 @@ namespace SearchSQL
                     var rootNode = GetRootNodeByType(obj.Type);
 
                     if (rootNode != null)
+                    {
                         rootNode.Nodes.Add(new TreeNode()
                         {
                             Text = obj.Name,
                             ImageIndex = GetImageIndexByType(obj),
                             SelectedImageIndex = GetImageIndexByType(obj),
-                            Tag = obj                            
+                            Tag = obj
                         });
+
+                        rootNode.Expand();
+                    }
                 }
 
                 _treeView.EndUpdate();
