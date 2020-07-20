@@ -51,7 +51,7 @@ namespace SearchSQL
             }
         }
 
-        private int GetImageIndex(DatabaseObject obj)
+        private int GetImageIndexByType(DatabaseObject obj)
         {
             switch ((obj as SqlDatabaseObject).Type)
             {
@@ -84,7 +84,7 @@ namespace SearchSQL
             _treeView.Nodes.Clear();
         }
 
-        private void BuildRootNodesTreeView()
+        private void BuildTreeViewRootNodes()
         {
             var procedures = new TreeNode() { Text = "Procedures", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Procedure };
             var scalarFunctions = new TreeNode() { Text = "Scalar Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.ScalarFunction };
@@ -107,7 +107,7 @@ namespace SearchSQL
 
                 ClearNodes();
 
-                BuildRootNodesTreeView();
+                BuildTreeViewRootNodes();
 
                 foreach (var obj in objects)
                 {
@@ -117,8 +117,8 @@ namespace SearchSQL
                         rootNode.Nodes.Add(new TreeNode()
                         {
                             Text = obj.Name,
-                            ImageIndex = GetImageIndex(obj),
-                            SelectedImageIndex = GetImageIndex(obj),
+                            ImageIndex = GetImageIndexByType(obj),
+                            SelectedImageIndex = GetImageIndexByType(obj),
                             Tag = obj                            
                         });
                 }
@@ -145,7 +145,7 @@ namespace SearchSQL
 
                 ClearNodes();
 
-                BuildRootNodesTreeView();
+                BuildTreeViewRootNodes();
 
                 var objects = _db.GetObjectsFromDb();
 
@@ -159,8 +159,8 @@ namespace SearchSQL
                         rootNode.Nodes.Add(new TreeNode()
                         {
                             Text = obj.Name,
-                            ImageIndex = GetImageIndex(obj),
-                            SelectedImageIndex = GetImageIndex(obj),
+                            ImageIndex = GetImageIndexByType(obj),
+                            SelectedImageIndex = GetImageIndexByType(obj),
                             Tag = obj
                         });
                 }
@@ -238,7 +238,7 @@ namespace SearchSQL
         {
             var tabPageName = $"tabPage{ obj.Name }";
 
-            var tabPage = new TabPage() { Name = tabPageName, Text = obj.Name, ImageIndex = GetImageIndex(obj) };
+            var tabPage = new TabPage() { Name = tabPageName, Text = obj.Name, ImageIndex = GetImageIndexByType(obj), Tag = obj };
 
             var elementHost = new ElementHost() { Dock = DockStyle.Fill, TabIndex = 1 };
 

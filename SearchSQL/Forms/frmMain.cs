@@ -48,6 +48,27 @@ namespace SearchSQL
                 RemoveTabPage(tab.Name);
         }
 
+        private void SetObjectDetails(DatabaseObject obj)
+        {
+            lblObjectCreateDate.Visible = false;
+            lblObjectModifyDate.Visible = false;
+            pictureBoxObjectDetails.Visible = false;
+
+            if (obj.CreateDate != null)
+            {   
+                lblObjectCreateDate.Text = $"Create Date: { obj.CreateDate.ToString("yyyy-MM-dd HH:mm:ss") }";
+                lblObjectCreateDate.Visible = true;
+                pictureBoxObjectDetails.Visible = true;
+            }
+
+            if (obj.ModifyDate != null)
+            {
+                lblObjectModifyDate.Text = $"Modify Date: { obj.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss") }";
+                lblObjectModifyDate.Visible = true;
+                pictureBoxObjectDetails.Visible = true;
+            }
+        }
+
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
         {
             const int ENTER = 13;
@@ -101,7 +122,24 @@ namespace SearchSQL
 
                 tabControlContent.TabPages.Add(tabPage);
                 tabControlContent.SelectedTab = tabControlContent.TabPages[tabPage.Name];
+
+                if (tabControlContent.TabPages.Count == 1)
+                    SetObjectDetails(databaseObject);
             }
+        }
+
+        /// <summary>
+        /// Selected tabPage changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabControlContent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tabControl = sender as TabControl;
+            
+            var databaseObj = tabControl.TabPages[tabControl.SelectedIndex].Tag as DatabaseObject;
+
+            SetObjectDetails(databaseObj);
         }
     }
 }

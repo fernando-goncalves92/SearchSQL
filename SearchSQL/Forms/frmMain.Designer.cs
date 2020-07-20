@@ -60,13 +60,21 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelPrincipal = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlObjectDetails = new System.Windows.Forms.Panel();
+            this.lblObjectModifyDate = new System.Windows.Forms.Label();
+            this.lblObjectCreateDate = new System.Windows.Forms.Label();
+            this.pictureBoxObjectDetails = new System.Windows.Forms.PictureBox();
+            this.pnlFooterTotal = new System.Windows.Forms.Panel();
+            this.lblFooterTotal = new System.Windows.Forms.Label();
             this.txtContentOrObjectToFind = new System.Windows.Forms.TextBox();
             this.treeViewObjects = new System.Windows.Forms.TreeView();
-            this.lblFooterTotal = new System.Windows.Forms.Label();
             this.tabControlContent = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanelPrincipal.SuspendLayout();
+            this.pnlObjectDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxObjectDetails)).BeginInit();
+            this.pnlFooterTotal.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -310,9 +318,10 @@
             this.tableLayoutPanelPrincipal.ColumnCount = 2;
             this.tableLayoutPanelPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.5F));
             this.tableLayoutPanelPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.5F));
+            this.tableLayoutPanelPrincipal.Controls.Add(this.pnlObjectDetails, 1, 2);
+            this.tableLayoutPanelPrincipal.Controls.Add(this.pnlFooterTotal, 0, 2);
             this.tableLayoutPanelPrincipal.Controls.Add(this.txtContentOrObjectToFind, 0, 0);
             this.tableLayoutPanelPrincipal.Controls.Add(this.treeViewObjects, 0, 1);
-            this.tableLayoutPanelPrincipal.Controls.Add(this.lblFooterTotal, 0, 2);
             this.tableLayoutPanelPrincipal.Controls.Add(this.tabControlContent, 1, 0);
             this.tableLayoutPanelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelPrincipal.Location = new System.Drawing.Point(0, 24);
@@ -323,6 +332,75 @@
             this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 426);
             this.tableLayoutPanelPrincipal.TabIndex = 0;
+            // 
+            // pnlObjectDetails
+            // 
+            this.pnlObjectDetails.BackColor = System.Drawing.Color.Khaki;
+            this.pnlObjectDetails.Controls.Add(this.lblObjectModifyDate);
+            this.pnlObjectDetails.Controls.Add(this.lblObjectCreateDate);
+            this.pnlObjectDetails.Controls.Add(this.pictureBoxObjectDetails);
+            this.pnlObjectDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlObjectDetails.Location = new System.Drawing.Point(263, 409);
+            this.pnlObjectDetails.Name = "pnlObjectDetails";
+            this.pnlObjectDetails.Size = new System.Drawing.Size(534, 14);
+            this.pnlObjectDetails.TabIndex = 0;
+            // 
+            // lblObjectModifyDate
+            // 
+            this.lblObjectModifyDate.BackColor = System.Drawing.Color.Transparent;
+            this.lblObjectModifyDate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblObjectModifyDate.Location = new System.Drawing.Point(197, 0);
+            this.lblObjectModifyDate.Name = "lblObjectModifyDate";
+            this.lblObjectModifyDate.Size = new System.Drawing.Size(181, 14);
+            this.lblObjectModifyDate.TabIndex = 1;
+            this.lblObjectModifyDate.Text = "Modify Date: 1992-06-06 00:00:00";
+            this.lblObjectModifyDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblObjectModifyDate.Visible = false;
+            // 
+            // lblObjectCreateDate
+            // 
+            this.lblObjectCreateDate.BackColor = System.Drawing.Color.Transparent;
+            this.lblObjectCreateDate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblObjectCreateDate.Location = new System.Drawing.Point(20, 0);
+            this.lblObjectCreateDate.Name = "lblObjectCreateDate";
+            this.lblObjectCreateDate.Size = new System.Drawing.Size(177, 14);
+            this.lblObjectCreateDate.TabIndex = 0;
+            this.lblObjectCreateDate.Text = "Create Date: 1992-06-06 00:00:00";
+            this.lblObjectCreateDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblObjectCreateDate.Visible = false;
+            // 
+            // pictureBoxObjectDetails
+            // 
+            this.pictureBoxObjectDetails.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBoxObjectDetails.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxObjectDetails.Image")));
+            this.pictureBoxObjectDetails.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxObjectDetails.Name = "pictureBoxObjectDetails";
+            this.pictureBoxObjectDetails.Size = new System.Drawing.Size(20, 14);
+            this.pictureBoxObjectDetails.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxObjectDetails.TabIndex = 2;
+            this.pictureBoxObjectDetails.TabStop = false;
+            this.pictureBoxObjectDetails.Visible = false;
+            // 
+            // pnlFooterTotal
+            // 
+            this.pnlFooterTotal.BackColor = System.Drawing.Color.Khaki;
+            this.pnlFooterTotal.Controls.Add(this.lblFooterTotal);
+            this.pnlFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlFooterTotal.Location = new System.Drawing.Point(3, 409);
+            this.pnlFooterTotal.Name = "pnlFooterTotal";
+            this.pnlFooterTotal.Size = new System.Drawing.Size(254, 14);
+            this.pnlFooterTotal.TabIndex = 0;
+            // 
+            // lblFooterTotal
+            // 
+            this.lblFooterTotal.BackColor = System.Drawing.Color.Transparent;
+            this.lblFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFooterTotal.Location = new System.Drawing.Point(0, 0);
+            this.lblFooterTotal.Name = "lblFooterTotal";
+            this.lblFooterTotal.Size = new System.Drawing.Size(254, 14);
+            this.lblFooterTotal.TabIndex = 0;
+            this.lblFooterTotal.Text = "Found objects: 0";
+            this.lblFooterTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtContentOrObjectToFind
             // 
@@ -348,17 +426,6 @@
             this.treeViewObjects.TabIndex = 2;
             this.treeViewObjects.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewOfObjects_NodeMouseDoubleClick);
             // 
-            // lblFooterTotal
-            // 
-            this.lblFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblFooterTotal.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblFooterTotal.Location = new System.Drawing.Point(3, 406);
-            this.lblFooterTotal.Name = "lblFooterTotal";
-            this.lblFooterTotal.Size = new System.Drawing.Size(254, 20);
-            this.lblFooterTotal.TabIndex = 3;
-            this.lblFooterTotal.Text = "Found objects: 0";
-            this.lblFooterTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // tabControlContent
             // 
             this.tabControlContent.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -368,6 +435,7 @@
             this.tabControlContent.SelectedIndex = 0;
             this.tabControlContent.Size = new System.Drawing.Size(534, 400);
             this.tabControlContent.TabIndex = 4;
+            this.tabControlContent.SelectedIndexChanged += new System.EventHandler(this.tabControlContent_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -393,6 +461,9 @@
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanelPrincipal.ResumeLayout(false);
             this.tableLayoutPanelPrincipal.PerformLayout();
+            this.pnlObjectDetails.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxObjectDetails)).EndInit();
+            this.pnlFooterTotal.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,9 +503,14 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPrincipal;
         private System.Windows.Forms.TreeView treeViewObjects;
-        private System.Windows.Forms.Label lblFooterTotal;
         private System.Windows.Forms.TabControl tabControlContent;
         private System.Windows.Forms.TextBox txtContentOrObjectToFind;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel pnlFooterTotal;
+        private System.Windows.Forms.Label lblFooterTotal;
+        private System.Windows.Forms.Panel pnlObjectDetails;
+        private System.Windows.Forms.PictureBox pictureBoxObjectDetails;
+        private System.Windows.Forms.Label lblObjectCreateDate;
+        private System.Windows.Forms.Label lblObjectModifyDate;
     }
 }
