@@ -64,19 +64,27 @@ namespace SearchSQL
             {   
                 var query = new StringBuilder();
                                                                                               
-                query.Append("  SELECT                                           ").Append(Environment.NewLine);                
-                query.Append("      sys.objects.NAME                             ").Append(Environment.NewLine);
-                query.Append("     ,sys.objects.TYPE                             ").Append(Environment.NewLine);   
-                query.Append("     ,MAX(sys.objects.CREATE_DATE) AS CREATE_DATE  ").Append(Environment.NewLine);
-                query.Append("     ,MAX(sys.objects.MODIFY_DATE) AS MODIFY_DATE  ").Append(Environment.NewLine);
-                query.Append("  FROM                                             ").Append(Environment.NewLine); 
-                query.Append("      sys.objects                                  ").Append(Environment.NewLine);
-                query.Append("  INNER JOIN syscomments ON                        ").Append(Environment.NewLine);                
-                query.Append("      sys.objects.OBJECT_ID = syscomments.id       ").Append(Environment.NewLine);                
-                query.Append("  WHERE                                            ").Append(Environment.NewLine);
-                query.Append($"      syscomments.text LIKE '%{ word }%'          ").Append(Environment.NewLine);
-                query.Append("  GROUP BY                                         ").Append(Environment.NewLine);
-                query.Append("      sys.objects.NAME, sys.objects.TYPE           ").Append(Environment.NewLine);
+                query.Append("  SELECT                                                                  ").Append(Environment.NewLine);                
+                query.Append("      sys.objects.NAME                                                    ").Append(Environment.NewLine);
+                query.Append($"    ,CASE TYPE WHEN 'P'  THEN '{ SqlDatabaseObjectType.Procedure }'      ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'TR' THEN '{ SqlDatabaseObjectType.Trigger }'        ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'FN' THEN '{ SqlDatabaseObjectType.ScalarFunction }' ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'IS' THEN '{ SqlDatabaseObjectType.ScalarFunction }' ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'V'  THEN '{ SqlDatabaseObjectType.View }'           ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'TF' THEN '{ SqlDatabaseObjectType.TableFunction }'  ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'IF' THEN '{ SqlDatabaseObjectType.TableFunction }'  ").Append(Environment.NewLine);
+                query.Append($"               ELSE '{ SqlDatabaseObjectType.Unknown }'                  ").Append(Environment.NewLine);
+                query.Append("      END AS TYPE                                                         ").Append(Environment.NewLine);
+                query.Append("     ,MAX(sys.objects.CREATE_DATE) AS CREATE_DATE                         ").Append(Environment.NewLine);
+                query.Append("     ,MAX(sys.objects.MODIFY_DATE) AS MODIFY_DATE                         ").Append(Environment.NewLine);
+                query.Append("  FROM                                                                    ").Append(Environment.NewLine); 
+                query.Append("      sys.objects                                                         ").Append(Environment.NewLine);
+                query.Append("  INNER JOIN syscomments ON                                               ").Append(Environment.NewLine);                
+                query.Append("      sys.objects.OBJECT_ID = syscomments.id                              ").Append(Environment.NewLine);                
+                query.Append("  WHERE                                                                   ").Append(Environment.NewLine);
+                query.Append($"      syscomments.text LIKE '%{ word }%'                                 ").Append(Environment.NewLine);
+                query.Append("  GROUP BY                                                                ").Append(Environment.NewLine);
+                query.Append("      sys.objects.NAME, sys.objects.TYPE                                  ").Append(Environment.NewLine);
 
                 using (SqlConnection connection = new SqlConnection(STRING_CONNECTION_TEMP))
                 {
