@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Search;
-using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace SearchSQL
 {
@@ -12,14 +8,14 @@ namespace SearchSQL
     {
         private const string PLACE_HOLDER_MESSAGE = "Type the content or object you're looking for...";
 
-        private ITreeView _treeView;
+        private IBuilder _builder;
 
         public frmMain()
         {
             InitializeComponent();
 
             // temp
-            _treeView = new SqlTreeView(treeViewObjects);
+            _builder = new SqlBuilder(treeViewObjects);
 
             SetImageListTabControl();
 
@@ -28,7 +24,7 @@ namespace SearchSQL
 
         private void BuildTreeView()
         {
-            SetNumberOfFoundObjects(_treeView.BuildNodes());
+            SetNumberOfFoundObjects(_builder.BuildTreeViewNodes());
         }
 
         private void SetNumberOfFoundObjects(int numberOfObjects)
@@ -36,56 +32,9 @@ namespace SearchSQL
             lblFooterTotal.Text = $"Found objects: { numberOfObjects }";
         }
 
-        private void AddTabPage(DatabaseObject obj)
+        private void SetImageListTabControl()
         {
-            var tabPageName = $"tabPage{ obj.Name }";
-
-            if (tabControlContent.TabPages.ContainsKey(tabPageName))
-            {
-                tabControlContent.SelectedTab = tabControlContent.TabPages[tabPageName];
-
-                return;
-            }
-
-            var tabPage = new TabPage() { Name = tabPageName, Text = obj.Name, ImageIndex = _treeView.GetImageIndex(obj) };
-
-            var elementHost = new ElementHost() { Dock = DockStyle.Fill, TabIndex = 1 };
-
-            var textEditor = new TextEditor() 
-            { 
-                ShowLineNumbers = true, 
-                SyntaxHighlighting = (IHighlightingDefinition)new HighlightingDefinitionTypeConverter().ConvertFrom("TSQL"),
-                FontFamily = new System.Windows.Media.FontFamily("Consolas"),
-                FontSize = 13.75f,
-                IsReadOnly = true,
-                Text = obj.Content
-            };
-
-            textEditor.KeyDown += TextEditor_KeyDown;
-
-            SearchPanel.Install(textEditor);
-
-            elementHost.Child = textEditor;
-
-            tabPage.Controls.Add(elementHost);
-
-            tabControlContent.TabPages.Add(tabPage);
-            tabControlContent.SelectedTab = tabControlContent.TabPages[tabPageName];
-        }
-
-        private void TextEditor_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.S)
-            {
-                var fileName = _treeView.SaveFile();
-
-                if (!string.IsNullOrEmpty(fileName))
-                {
-                    var textEditor = sender as TextEditor;
-
-                    textEditor.Save(fileName);
-                }
-            }
+            tabControlContent.ImageList = _builder.LoadImageList();
         }
 
         private void RemoveTabPage(string tabPageName)
@@ -99,19 +48,19 @@ namespace SearchSQL
                 RemoveTabPage(tab.Name);
         }
 
-        private void SetImageListTabControl()
-        {
-            tabControlContent.ImageList = _treeView.LoadImageList();
-        }
-
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
         {
             const int ENTER = 13;
 
             if (e.KeyChar == ENTER)
-                SetNumberOfFoundObjects(_treeView.FindContentAndObjects(txtContentOrObjectToFind.Text));
+                SetNumberOfFoundObjects(_builder.FindContentAndObjects(txtContentOrObjectToFind.Text));
         }
 
+        /// <summary>
+        /// Got focus in search field
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtContentFind_Enter(object sender, EventArgs e)
         {
             if (txtContentOrObjectToFind.Text == PLACE_HOLDER_MESSAGE)
@@ -122,6 +71,11 @@ namespace SearchSQL
             }
         }
 
+        /// <summary>
+        /// Lost focus in search field
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtContentFind_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtContentOrObjectToFind.Text))
@@ -132,12 +86,22 @@ namespace SearchSQL
             }
         }
 
+        /// <summary>
+        /// Double click on treeview node
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void treeViewOfObjects_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             var databaseObject = e.Node.Tag as DatabaseObject;
 
-            if (databaseObject != null)            
-                AddTabPage(databaseObject);
+            if (databaseObject != null)
+            {
+                var tabPage = _builder.AddTabPage(databaseObject);
+
+                tabControlContent.TabPages.Add(tabPage);
+                tabControlContent.SelectedTab = tabControlContent.TabPages[tabPage.Name];
+            }
         }
     }
 }

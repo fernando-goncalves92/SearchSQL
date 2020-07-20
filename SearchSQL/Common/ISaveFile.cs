@@ -2,6 +2,6 @@
 {
     public interface ISaveFile
     {
-        string SaveFile();
+        string SaveFile(string suggestedFileName);
     }
 }

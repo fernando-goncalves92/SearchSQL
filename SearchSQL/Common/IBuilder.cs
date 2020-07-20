@@ -2,11 +2,11 @@
 
 namespace SearchSQL
 {
-    public interface ITreeView : ISaveFile
+    public interface IBuilder : ISaveFile
     {
-        int BuildNodes();
+        int BuildTreeViewNodes();
         int FindContentAndObjects(string word);
         ImageList LoadImageList();
-        int GetImageIndex(DatabaseObject obj);
+        TabPage AddTabPage(DatabaseObject obj);
     }
 }
