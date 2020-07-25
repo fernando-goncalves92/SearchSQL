@@ -17,6 +17,8 @@ namespace SearchSQL
             // temp
             _builder = new SqlBuilder(treeViewObjects);
 
+            SetObjectDetailsInvisible();
+
             SetImageListTabControl();
 
             BuildTreeView();
@@ -52,12 +54,14 @@ namespace SearchSQL
         {
             lblObjectCreateDate.Visible = false;
             lblObjectModifyDate.Visible = false;
+            separatorFooter1.Visible = false;
             pictureBoxObjectDetails.Visible = false;
 
             if (obj.CreateDate != null)
-            {   
+            {
                 lblObjectCreateDate.Text = $"Create Date: { obj.CreateDate.ToString("yyyy-MM-dd HH:mm:ss") }";
                 lblObjectCreateDate.Visible = true;
+                separatorFooter1.Visible = true;
                 pictureBoxObjectDetails.Visible = true;
             }
 
@@ -65,8 +69,17 @@ namespace SearchSQL
             {
                 lblObjectModifyDate.Text = $"Modify Date: { obj.ModifyDate.ToString("yyyy-MM-dd HH:mm:ss") }";
                 lblObjectModifyDate.Visible = true;
+                separatorFooter1.Visible = true;
                 pictureBoxObjectDetails.Visible = true;
             }
+        }
+
+        private void SetObjectDetailsInvisible()
+        {
+            lblObjectCreateDate.Visible = false;
+            lblObjectModifyDate.Visible = false;
+            separatorFooter1.Visible = false;
+            pictureBoxObjectDetails.Visible = false;
         }
 
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
