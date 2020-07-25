@@ -1,10 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Windows.Forms.Integration;
-using System.Windows.Input;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -26,29 +26,10 @@ namespace SearchSQL
         public SqlBuilder(TreeView treeview)
         {
             _db = new SqlDatabase();
-
+            
             _treeView = treeview;
 
             LoadImageList();
-        }
-
-        private void TextEditor_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.S))
-            {
-                var fileName = SaveFile(((sender as TextEditor).Tag as DatabaseObject).Name);
-
-                if (!string.IsNullOrEmpty(fileName))
-                {
-                    var textEditor = sender as TextEditor;
-
-                    textEditor.Save(fileName);
-                }
-            }
-            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.F4))
-            {
-                // Close current tab
-            }
         }
 
         private int GetImageIndexByType(DatabaseObject obj)
@@ -207,7 +188,7 @@ namespace SearchSQL
             return numberOfObjects;
         }
 
-        public string SaveFile(string suggestedFileName)
+        public string SaveFile(string suggestedFileName, string fileContent)
         {
             using (SaveFileDialog dialog = new SaveFileDialog())
             {
@@ -216,7 +197,14 @@ namespace SearchSQL
                 dialog.Filter = "SQL file |*.sql";
                 dialog.Title = "Save the object";
                 dialog.FileName = suggestedFileName;
-                dialog.ShowDialog();
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var tw = new StreamWriter(dialog.FileName, false))
+                    {
+                        tw.WriteLine(fileContent);
+                    }
+                }
 
                 return dialog.FileName;
             }
@@ -257,8 +245,6 @@ namespace SearchSQL
                 Tag = obj,
                 Options = new TextEditorOptions() { HighlightCurrentLine = true }
             };
-
-            textEditor.KeyDown += TextEditor_KeyDown;
 
             SearchPanel.Install(textEditor);
 

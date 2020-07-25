@@ -10,6 +10,9 @@ namespace SearchSQL
 
         private IBuilder _builder;
 
+        private ContextMenuStrip _contextMenuTabControl;
+        private ContextMenuStrip _contextMenuTreeView;
+
         public frmMain()
         {
             InitializeComponent();
@@ -20,6 +23,10 @@ namespace SearchSQL
             SetObjectDetailsInvisible();
 
             SetImageListTabControl();
+
+            BuilTabControlContextMenu();
+
+            BuildTreeViewContextMenu();
 
             BuildTreeView();
         }
@@ -39,24 +46,12 @@ namespace SearchSQL
             tabControlContent.ImageList = _builder.LoadImageList();
         }
 
-        private void RemoveTabPage(string tabPageName)
-        {
-            tabControlContent.TabPages.RemoveByKey(tabPageName);
-        }
-
-        private void RemoveAllTabs()
-        {
-            foreach (TabPage tab in tabControlContent.TabPages)
-                RemoveTabPage(tab.Name);
-        }
-
         private void SetObjectDetails(DatabaseObject obj)
         {
             lblObjectCreateDate.Visible = false;
             lblObjectModifyDate.Visible = false;
             separatorFooter1.Visible = false;
-            pictureBoxObjectDetails.Visible = false;
-
+            
             if (obj.CreateDate != null)
             {
                 lblObjectCreateDate.Text = $"Create Date: { obj.CreateDate.ToString("yyyy-MM-dd HH:mm:ss") }";
@@ -80,6 +75,117 @@ namespace SearchSQL
             lblObjectModifyDate.Visible = false;
             separatorFooter1.Visible = false;
             pictureBoxObjectDetails.Visible = false;
+        }
+
+        private void BuilTabControlContextMenu()
+        {
+            _contextMenuTabControl = new ContextMenuStrip();
+
+            var save = new ToolStripMenuItem();
+            save.Text = "Save";
+            save.ShowShortcutKeys = true;
+            save.ShortcutKeys = Keys.Control | Keys.S;
+            save.Click += Save;
+            save.Image = Properties.Resources.save;
+
+            var saveAllDocuments = new ToolStripMenuItem();
+            saveAllDocuments.Text = "Save All Documents";
+            saveAllDocuments.ShowShortcutKeys = true;
+            saveAllDocuments.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+            saveAllDocuments.Click += SaveAllDocuments;
+            saveAllDocuments.Image = Properties.Resources.saveAll;
+
+            var close = new ToolStripMenuItem();
+            close.Text = "Close";
+            close.ShowShortcutKeys = true;
+            close.ShortcutKeys = Keys.Control | Keys.F4;
+            close.Click += Close;
+
+            var closeAllDocuments = new ToolStripMenuItem();
+            closeAllDocuments.Text = "Close All Documents";
+            closeAllDocuments.Click += CloseAllDocuments;
+
+            var closeAllButThis = new ToolStripMenuItem();
+            closeAllButThis.Text = "Close All But This";
+            closeAllButThis.Click += CloseAllButThis;
+
+            _contextMenuTabControl.Items.Add(save);
+            _contextMenuTabControl.Items.Add(saveAllDocuments);
+            _contextMenuTabControl.Items.Add(close);
+            _contextMenuTabControl.Items.Add(closeAllDocuments);
+            _contextMenuTabControl.Items.Add(closeAllButThis);
+        }
+
+        private void BuildTreeViewContextMenu()
+        {
+            _contextMenuTreeView = new ContextMenuStrip();
+
+            var save = new ToolStripMenuItem();
+            save.Text = "Save";            
+            save.Click += Save;
+            save.Image = Properties.Resources.save;
+
+            var viewDocument = new ToolStripMenuItem();
+            viewDocument.Text = "View Document";
+            viewDocument.Click += ViewDocument;            
+            viewDocument.Image = Properties.Resources.viewDocument;
+
+            _contextMenuTreeView.Items.Add(save);
+            _contextMenuTreeView.Items.Add(viewDocument);            
+        }
+
+        private void ViewDocument(object sender, EventArgs e)
+        {
+            var databaseObject = treeViewObjects.SelectedNode.Tag as DatabaseObject;
+
+            if (databaseObject != null)            
+                AddTabPage(databaseObject);
+        }
+
+        private void Save(object sender, EventArgs e)
+        {
+            _builder.SaveFile(tabControlContent.SelectedTab.Text, (tabControlContent.SelectedTab.Tag as DatabaseObject)?.Content);
+        }
+
+        private void SaveAllDocuments(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to save all documents?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)            
+                foreach (TabPage tab in tabControlContent.TabPages)                
+                    _builder.SaveFile(tab.Text, (tab.Tag as DatabaseObject)?.Content);
+        }
+
+        private void Close(object sender, EventArgs e)
+        {
+            tabControlContent.TabPages.RemoveByKey(tabControlContent.SelectedTab.Name);
+        }
+
+        private void CloseAllDocuments(object sender, EventArgs e)
+        {
+            foreach (TabPage tab in tabControlContent.TabPages)
+                tabControlContent.TabPages.RemoveByKey(tab.Name);
+        }
+
+        private void CloseAllButThis(object sender, EventArgs e)
+        {
+            foreach (TabPage tab in tabControlContent.TabPages)
+                if (tab.Name != tabControlContent.SelectedTab.Name)
+                    tabControlContent.TabPages.RemoveByKey(tab.Name);
+        }
+
+        private void AddTabPage(DatabaseObject databaseObject)
+        {
+            if (tabControlContent.TabPages.ContainsKey($"tabPage{ databaseObject.Name }"))            
+                tabControlContent.SelectedTab = tabControlContent.TabPages[$"tabPage{ databaseObject.Name }"];            
+            else
+            {
+                var tabPage = _builder.AddTabPage(databaseObject);
+
+                tabControlContent.TabPages.Add(tabPage);
+                tabControlContent.SelectedTab = tabControlContent.TabPages[tabPage.Name];
+
+                if (tabControlContent.TabPages.Count == 1)
+                    SetObjectDetails(databaseObject);
+            }
         }
 
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
@@ -134,16 +240,8 @@ namespace SearchSQL
         {
             var databaseObject = e.Node.Tag as DatabaseObject;
 
-            if (databaseObject != null)
-            {
-                var tabPage = _builder.AddTabPage(databaseObject);
-
-                tabControlContent.TabPages.Add(tabPage);
-                tabControlContent.SelectedTab = tabControlContent.TabPages[tabPage.Name];
-
-                if (tabControlContent.TabPages.Count == 1)
-                    SetObjectDetails(databaseObject);
-            }
+            if (databaseObject != null)            
+                AddTabPage(databaseObject);
         }
 
         /// <summary>
@@ -154,11 +252,51 @@ namespace SearchSQL
         private void tabControlContent_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tabControl = sender as TabControl;
-            
-            var databaseObj = tabControl.TabPages[tabControl.SelectedIndex].Tag as DatabaseObject;
 
-            if (databaseObj != null)
-                SetObjectDetails(databaseObj);
+            if (tabControl.SelectedIndex > -1)
+            {
+                var databaseObj = tabControl.TabPages[tabControl.SelectedIndex].Tag as DatabaseObject;
+
+                if (databaseObj != null)
+                    SetObjectDetails(databaseObj);
+            }
+        }
+        
+        /// <summary>
+        /// Mouse click on tabControlContent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabControlContent_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                for (var count = 0; count < tabControlContent.TabCount; count++)
+                {
+                    var tab = tabControlContent.GetTabRect(count);
+
+                    if (tab.Contains(e.Location))
+                        tabControlContent.SelectedIndex = count;
+                }
+
+                _contextMenuTabControl.Show(this, Cursor.Position);
+            }
+        }
+
+        /// <summary>
+        /// Mouse click on treeview nodes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeViewObjects_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                treeViewObjects.SelectedNode = e.Node;
+
+                if (e.Node.Parent != null)
+                    _contextMenuTreeView.Show(this, Cursor.Position);
+            }
         }
     }
 }

@@ -140,7 +140,7 @@
             // 
             this.lblObjectCreateDate.Name = "lblObjectCreateDate";
             this.lblObjectCreateDate.Size = new System.Drawing.Size(177, 11);
-            this.lblObjectCreateDate.Text = "Create Date: 06/06/1992 06:00:00";
+            this.lblObjectCreateDate.Text = "Create Date: 06/06/1992 00:00:00";
             // 
             // separatorFooter1
             // 
@@ -151,7 +151,7 @@
             // 
             this.lblObjectModifyDate.Name = "lblObjectModifyDate";
             this.lblObjectModifyDate.Size = new System.Drawing.Size(181, 11);
-            this.lblObjectModifyDate.Text = "Modify Date: 06/06/1992 06:00:00";
+            this.lblObjectModifyDate.Text = "Modify Date: 06/06/1992 00:00:00";
             // 
             // pictureBoxObjectDetails
             // 
@@ -207,6 +207,7 @@
             this.treeViewObjects.Name = "treeViewObjects";
             this.treeViewObjects.Size = new System.Drawing.Size(254, 365);
             this.treeViewObjects.TabIndex = 2;
+            this.treeViewObjects.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewObjects_NodeMouseClick);
             this.treeViewObjects.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewOfObjects_NodeMouseDoubleClick);
             // 
             // tabControlContent
@@ -219,6 +220,7 @@
             this.tabControlContent.Size = new System.Drawing.Size(534, 395);
             this.tabControlContent.TabIndex = 3;
             this.tabControlContent.SelectedIndexChanged += new System.EventHandler(this.tabControlContent_SelectedIndexChanged);
+            this.tabControlContent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControlContent_MouseClick);
             // 
             // toolStripHeader
             // 
@@ -274,12 +276,12 @@
             // 
             // btnMakeDefaultConfig
             // 
-            this.btnMakeDefaultConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnMakeDefaultConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnMakeDefaultConfig.Image")));
+            this.btnMakeDefaultConfig.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMakeDefaultConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMakeDefaultConfig.Name = "btnMakeDefaultConfig";
-            this.btnMakeDefaultConfig.Size = new System.Drawing.Size(197, 26);
-            this.btnMakeDefaultConfig.Text = "Make this my default configuration";
+            this.btnMakeDefaultConfig.Size = new System.Drawing.Size(213, 26);
+            this.btnMakeDefaultConfig.Text = "Make this the default configuration";
             // 
             // tableLayoutPanelHeader
             // 
