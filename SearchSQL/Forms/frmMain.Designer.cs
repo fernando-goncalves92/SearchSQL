@@ -48,9 +48,6 @@
             this.lblConfig = new System.Windows.Forms.ToolStripLabel();
             this.comboBoxConfig = new System.Windows.Forms.ToolStripComboBox();
             this.separatorHeader1 = new System.Windows.Forms.ToolStripSeparator();
-            this.lblDatabase = new System.Windows.Forms.ToolStripLabel();
-            this.comboBoxDatabase = new System.Windows.Forms.ToolStripComboBox();
-            this.separatorHeader2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMakeDefaultConfig = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanelHeader = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1.SuspendLayout();
@@ -230,9 +227,6 @@
             this.lblConfig,
             this.comboBoxConfig,
             this.separatorHeader1,
-            this.lblDatabase,
-            this.comboBoxDatabase,
-            this.separatorHeader2,
             this.btnMakeDefaultConfig});
             this.toolStripHeader.Location = new System.Drawing.Point(90, 0);
             this.toolStripHeader.Name = "toolStripHeader";
@@ -249,30 +243,14 @@
             // 
             // comboBoxConfig
             // 
+            this.comboBoxConfig.BackColor = System.Drawing.Color.LemonChiffon;
             this.comboBoxConfig.Name = "comboBoxConfig";
-            this.comboBoxConfig.Size = new System.Drawing.Size(121, 29);
+            this.comboBoxConfig.Size = new System.Drawing.Size(200, 29);
             // 
             // separatorHeader1
             // 
             this.separatorHeader1.Name = "separatorHeader1";
             this.separatorHeader1.Size = new System.Drawing.Size(6, 29);
-            // 
-            // lblDatabase
-            // 
-            this.lblDatabase.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblDatabase.Name = "lblDatabase";
-            this.lblDatabase.Size = new System.Drawing.Size(58, 26);
-            this.lblDatabase.Text = "Database:";
-            // 
-            // comboBoxDatabase
-            // 
-            this.comboBoxDatabase.Name = "comboBoxDatabase";
-            this.comboBoxDatabase.Size = new System.Drawing.Size(121, 29);
-            // 
-            // separatorHeader2
-            // 
-            this.separatorHeader2.Name = "separatorHeader2";
-            this.separatorHeader2.Size = new System.Drawing.Size(6, 29);
             // 
             // btnMakeDefaultConfig
             // 
@@ -281,7 +259,7 @@
             this.btnMakeDefaultConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMakeDefaultConfig.Name = "btnMakeDefaultConfig";
             this.btnMakeDefaultConfig.Size = new System.Drawing.Size(213, 26);
-            this.btnMakeDefaultConfig.Text = "Make this the default configuration";
+            this.btnMakeDefaultConfig.Text = "Make this my default configuration";
             // 
             // tableLayoutPanelHeader
             // 
@@ -341,15 +319,12 @@
         private System.Windows.Forms.ToolStripLabel lblConfig;
         private System.Windows.Forms.ToolStripComboBox comboBoxConfig;
         private System.Windows.Forms.ToolStripSeparator separatorHeader1;
-        private System.Windows.Forms.ToolStripComboBox comboBoxDatabase;
         private System.Windows.Forms.TabControl tabControlContent;
-        private System.Windows.Forms.ToolStripLabel lblDatabase;
         private System.Windows.Forms.ToolStrip toolStripFooter;
         private System.Windows.Forms.ToolStripLabel lblObjectCreateDate;
         private System.Windows.Forms.ToolStripSeparator separatorFooter1;
         private System.Windows.Forms.ToolStripLabel lblObjectModifyDate;
         private System.Windows.Forms.ToolStripButton btnMakeDefaultConfig;
-        private System.Windows.Forms.ToolStripSeparator separatorHeader2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHeader;

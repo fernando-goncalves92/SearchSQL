@@ -17,18 +17,53 @@ namespace SearchSQL
         {
             InitializeComponent();
 
-            // temp
-            _builder = new SqlBuilder(treeViewObjects);
+            Config.Load();
 
-            SetObjectDetailsInvisible();
+            SetComboBoxConfigDataSource();
 
-            SetImageListTabControl();
+            CreateToolStripButtonsEvent();
 
             BuilTabControlContextMenu();
 
             BuildTreeViewContextMenu();
 
-            BuildTreeView();
+            BuildScreen(Config.DefaultConfig);
+        }
+
+        private void BuildScreen(ConfigItem activeConfig)
+        {
+            switch (activeConfig.Dbms)
+            {
+                case Dbms.SQLServer:
+                    {
+                        _builder = new SqlBuilder(treeViewObjects, activeConfig);
+
+                        break;
+                    }
+            }
+
+            if (_builder != null)
+            {
+                SetObjectDetailsInvisible();
+
+                SetImageListTabControl();
+
+                BuildTreeView();
+            }
+            else            
+                MessageBox.Show("This DBMS type was not implemented yet!\n\nPlease, insert a valid DBMS type and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void CreateToolStripButtonsEvent()
+        {
+            comboBoxConfig.SelectedIndexChanged += comboBoxConfig_SelectedIndexChanged;
+            btnMakeDefaultConfig.Click += btnMakeDefaultConfig_Click;
+        }
+
+        private void SetComboBoxConfigDataSource()
+        {
+            comboBoxConfig.ComboBox.DataSource = Config.Items;
+            comboBoxConfig.ComboBox.SelectedItem = Config.DefaultConfig;
         }
 
         private void BuildTreeView()
@@ -103,6 +138,8 @@ namespace SearchSQL
 
             var closeAllDocuments = new ToolStripMenuItem();
             closeAllDocuments.Text = "Close All Documents";
+            closeAllDocuments.ShowShortcutKeys = true;
+            closeAllDocuments.ShortcutKeys = Keys.Control | Keys.Shift | Keys.F4;
             closeAllDocuments.Click += CloseAllDocuments;
 
             var closeAllButThis = new ToolStripMenuItem();
@@ -297,6 +334,26 @@ namespace SearchSQL
                 if (e.Node.Parent != null)
                     _contextMenuTreeView.Show(this, Cursor.Position);
             }
+        }
+
+        /// <summary>
+        /// Change default config clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMakeDefaultConfig_Click(object sender, EventArgs e)
+        {
+            Config.MakeDefaultConfiguration(comboBoxConfig.SelectedItem as ConfigItem);
+        }
+
+        /// <summary>
+        /// Active configuration changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBoxConfig_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BuildScreen(comboBoxConfig.SelectedItem as ConfigItem);
         }
     }
 }

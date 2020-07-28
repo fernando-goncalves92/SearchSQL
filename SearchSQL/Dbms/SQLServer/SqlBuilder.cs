@@ -23,9 +23,9 @@ namespace SearchSQL
         private TreeView _treeView;
         private SqlDatabase _db;
 
-        public SqlBuilder(TreeView treeview)
+        public SqlBuilder(TreeView treeview, ConfigItem config)
         {
-            _db = new SqlDatabase();
+            _db = new SqlDatabase(config);
             
             _treeView = treeview;
 
@@ -36,18 +36,12 @@ namespace SearchSQL
         {
             switch ((obj as SqlDatabaseObject).Type)
             {
-                case SqlDatabaseObjectType.Procedure:
-                    return PROCEDURE_ICON_INDICE;
-                case SqlDatabaseObjectType.ScalarFunction:
-                    return SCALAR_FUNCTION_ICON_INDICE;
-                case SqlDatabaseObjectType.TableFunction:
-                    return TABLE_FUNCTION_ICON_INDICE;
-                case SqlDatabaseObjectType.View:
-                    return VIEW_ICON_INDICE;
-                case SqlDatabaseObjectType.Trigger:
-                    return TRIGGER_ICON_INDICE;
-                default:
-                    return -1;
+                case SqlDatabaseObjectType.Procedure: return PROCEDURE_ICON_INDICE;
+                case SqlDatabaseObjectType.ScalarFunction: return SCALAR_FUNCTION_ICON_INDICE;
+                case SqlDatabaseObjectType.TableFunction: return TABLE_FUNCTION_ICON_INDICE;
+                case SqlDatabaseObjectType.View: return VIEW_ICON_INDICE;
+                case SqlDatabaseObjectType.Trigger: return TRIGGER_ICON_INDICE;
+                default: return -1;
             }
         }
 
@@ -188,7 +182,7 @@ namespace SearchSQL
             return numberOfObjects;
         }
 
-        public string SaveFile(string suggestedFileName, string fileContent)
+        public void SaveFile(string suggestedFileName, string fileContent)
         {
             using (SaveFileDialog dialog = new SaveFileDialog())
             {
@@ -205,8 +199,6 @@ namespace SearchSQL
                         tw.WriteLine(fileContent);
                     }
                 }
-
-                return dialog.FileName;
             }
         }
 

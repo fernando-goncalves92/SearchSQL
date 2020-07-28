@@ -8,7 +8,12 @@ namespace SearchSQL
 {
     public class SqlDatabase
     {
-        private const string STRING_CONNECTION_TEMP = @"Server=SQO-062\SQLEXPRESS;Database=dbAI1860SLD;User Id=sa; Password=sequor;";
+        private readonly ConfigItem _config;
+
+        public SqlDatabase(ConfigItem config)
+        {
+            _config = config;
+        }
 
         private string GetObjectBody(string objectName)
         {
@@ -40,7 +45,7 @@ namespace SearchSQL
 
             query.Append("  SELECT @CONTENT AS CONTENT                                                            ").Append(Environment.NewLine);
 
-            using (SqlConnection connection = new SqlConnection(STRING_CONNECTION_TEMP))
+            using (SqlConnection connection = new SqlConnection(_config.StringConnection))
             {
                 connection.Open();
 
@@ -86,7 +91,7 @@ namespace SearchSQL
                 query.Append("  GROUP BY                                                                ").Append(Environment.NewLine);
                 query.Append("      sys.objects.NAME, sys.objects.TYPE                                  ").Append(Environment.NewLine);
 
-                using (SqlConnection connection = new SqlConnection(STRING_CONNECTION_TEMP))
+                using (SqlConnection connection = new SqlConnection(_config.StringConnection))
                 {
                     connection.Open();
 
@@ -153,7 +158,7 @@ namespace SearchSQL
                 query.Append("  ORDER BY                                                                ").Append(Environment.NewLine);
                 query.Append("      TYPE                                                                ").Append(Environment.NewLine);
                 
-                using (SqlConnection connection = new SqlConnection(STRING_CONNECTION_TEMP))
+                using (SqlConnection connection = new SqlConnection(_config.StringConnection))
                 {
                     connection.Open();
 
