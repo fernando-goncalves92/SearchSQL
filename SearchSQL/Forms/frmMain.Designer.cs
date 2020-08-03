@@ -49,6 +49,8 @@
             this.comboBoxConfig = new System.Windows.Forms.ToolStripComboBox();
             this.separatorHeader1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMakeDefaultConfig = new System.Windows.Forms.ToolStripButton();
+            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.lblProgressBarMessage = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanelHeader = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanelPrincipal.SuspendLayout();
@@ -227,7 +229,9 @@
             this.lblConfig,
             this.comboBoxConfig,
             this.separatorHeader1,
-            this.btnMakeDefaultConfig});
+            this.btnMakeDefaultConfig,
+            this.progressBar,
+            this.lblProgressBarMessage});
             this.toolStripHeader.Location = new System.Drawing.Point(90, 0);
             this.toolStripHeader.Name = "toolStripHeader";
             this.toolStripHeader.Size = new System.Drawing.Size(710, 29);
@@ -260,6 +264,23 @@
             this.btnMakeDefaultConfig.Name = "btnMakeDefaultConfig";
             this.btnMakeDefaultConfig.Size = new System.Drawing.Size(213, 26);
             this.btnMakeDefaultConfig.Text = "Make this my default configuration";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.progressBar.Size = new System.Drawing.Size(155, 26);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar.Visible = false;
+            // 
+            // lblProgressBarMessage
+            // 
+            this.lblProgressBarMessage.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblProgressBarMessage.Name = "lblProgressBarMessage";
+            this.lblProgressBarMessage.Size = new System.Drawing.Size(40, 26);
+            this.lblProgressBarMessage.Text = "Wait...";
+            this.lblProgressBarMessage.Visible = false;
             // 
             // tableLayoutPanelHeader
             // 
@@ -328,5 +349,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHeader;
+        private System.Windows.Forms.ToolStripProgressBar progressBar;
+        private System.Windows.Forms.ToolStripLabel lblProgressBarMessage;
     }
 }

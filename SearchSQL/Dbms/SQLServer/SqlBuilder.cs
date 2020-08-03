@@ -19,6 +19,8 @@ namespace SearchSQL
         private const int TABLE_FUNCTION_ICON_INDICE = 3;
         private const int VIEW_ICON_INDICE = 4;
         private const int TRIGGER_ICON_INDICE = 5;
+        private const int TABLE_ICON_INDICE = 6;
+        private const int COLUMN_ICON_INDICE = 7;
 
         private TreeView _treeView;
         private SqlDatabase _db;
@@ -41,6 +43,7 @@ namespace SearchSQL
                 case SqlDatabaseObjectType.TableFunction: return TABLE_FUNCTION_ICON_INDICE;
                 case SqlDatabaseObjectType.View: return VIEW_ICON_INDICE;
                 case SqlDatabaseObjectType.Trigger: return TRIGGER_ICON_INDICE;
+                case SqlDatabaseObjectType.Table: return TABLE_ICON_INDICE;                
                 default: return -1;
             }
         }
@@ -66,12 +69,14 @@ namespace SearchSQL
             var tableFunctions = new TreeNode() { Text = "Table Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.TableFunction };
             var triggers = new TreeNode() { Text = "Triggers", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Trigger };
             var views = new TreeNode() { Text = "Views", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.View };
+            var tables = new TreeNode() { Text = "Tables", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Table };
 
             _treeView.Nodes.Add(procedures);
             _treeView.Nodes.Add(scalarFunctions);
             _treeView.Nodes.Add(tableFunctions);
             _treeView.Nodes.Add(triggers);
             _treeView.Nodes.Add(views);
+            _treeView.Nodes.Add(tables);
         }
 
         private void BuildTreeViewNodes(IEnumerable<SqlDatabaseObject> objects)
@@ -90,14 +95,31 @@ namespace SearchSQL
 
                     if (rootNode != null)
                     {
-                        rootNode.Nodes.Add(new TreeNode()
+                        var node = new TreeNode()
                         {
                             Text = obj.Name,
                             ImageIndex = GetImageIndexByType(obj),
                             SelectedImageIndex = GetImageIndexByType(obj),
                             Tag = obj
-                        });
+                        };
 
+                        if (obj.Type == SqlDatabaseObjectType.Table)
+                        {
+                            var columns = _db.GetColumns(obj.Name);
+
+                            foreach (var column in columns)
+                            {
+                                node.Nodes.Add(new TreeNode()
+                                {
+                                    Text = column,
+                                    ImageIndex = COLUMN_ICON_INDICE,
+                                    SelectedImageIndex = COLUMN_ICON_INDICE,
+                                    Tag = obj
+                                });
+                            }
+                        }
+
+                        rootNode.Nodes.Add(node);
                         rootNode.Expand();
                     }
                 }
@@ -135,13 +157,33 @@ namespace SearchSQL
                     var rootNode = GetRootNodeByType(obj.Type);
 
                     if (rootNode != null)
-                        rootNode.Nodes.Add(new TreeNode()
+                    {
+                        var node = new TreeNode()
                         {
                             Text = obj.Name,
                             ImageIndex = GetImageIndexByType(obj),
                             SelectedImageIndex = GetImageIndexByType(obj),
                             Tag = obj
-                        });
+                        };
+
+                        if (obj.Type == SqlDatabaseObjectType.Table)
+                        {
+                            var columns = _db.GetColumns(obj.Name);
+
+                            foreach (var column in columns)
+                            {
+                                node.Nodes.Add(new TreeNode()
+                                {
+                                    Text = column,
+                                    ImageIndex = COLUMN_ICON_INDICE,
+                                    SelectedImageIndex = COLUMN_ICON_INDICE,
+                                    Tag = obj
+                                });
+                            }
+                        }
+
+                        rootNode.Nodes.Add(node);
+                    }
                 }
 
                 _treeView.EndUpdate();
@@ -212,6 +254,8 @@ namespace SearchSQL
             images.Images.Add(Image.FromFile(@"images\sql\tableFunction.png"));
             images.Images.Add(Image.FromFile(@"images\sql\view.png"));
             images.Images.Add(Image.FromFile(@"images\sql\trigger.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\table.png"));
+            images.Images.Add(Image.FromFile(@"images\sql\column.png"));
 
             _treeView.ImageList = images;
 

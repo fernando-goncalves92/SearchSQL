@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SearchSQL
@@ -42,10 +44,10 @@ namespace SearchSQL
                     }
             }
 
+            SetObjectDetailsInvisible();
+
             if (_builder != null)
             {
-                SetObjectDetailsInvisible();
-
                 SetImageListTabControl();
 
                 BuildTreeView();
@@ -112,16 +114,56 @@ namespace SearchSQL
             pictureBoxObjectDetails.Visible = false;
         }
 
+        private void ShowProgressBar(string message = "")
+        {
+            //var worker = new BackgroundWorker();
+
+            //worker.DoWork += (object sender, DoWorkEventArgs e) =>
+            //{
+            //    progressBar.Visible = true;
+
+            //    lblProgressBarMessage.Text = !string.IsNullOrEmpty(message) ? message : lblProgressBarMessage.Text;
+            //    lblProgressBarMessage.Visible = true;                
+            //};
+
+            //worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            //{
+            //    lblProgressBarMessage.Text = "Wait...";
+            //    lblProgressBarMessage.Visible = false;
+            //    progressBar.Visible = false;
+            //};
+
+            //worker.RunWorkerAsync();
+
+            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Text = !string.IsNullOrEmpty(message) ? message : lblProgressBarMessage.Text));
+            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Visible = true));
+            //this.BeginInvoke((Action)(() => progressBar.Visible = true));
+
+            //Application.DoEvents();
+        }
+
+        private void HideProgressBar()
+        {
+            //lblProgressBarMessage.Text = "Wait...";
+            //lblProgressBarMessage.Visible = false;
+            //progressBar.Visible = false;
+
+            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Text = "Wait..."));
+            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Visible = false));
+            //this.BeginInvoke((Action)(() => progressBar.Visible = false));
+        }
+
         private void BuilTabControlContextMenu()
         {
             _contextMenuTabControl = new ContextMenuStrip();
-
+            
             var save = new ToolStripMenuItem();
             save.Text = "Save";
             save.ShowShortcutKeys = true;
             save.ShortcutKeys = Keys.Control | Keys.S;
             save.Click += Save;
             save.Image = Properties.Resources.save;
+            save.Tag = tabControlContent;
 
             var saveAllDocuments = new ToolStripMenuItem();
             saveAllDocuments.Text = "Save All Documents";
@@ -156,11 +198,12 @@ namespace SearchSQL
         private void BuildTreeViewContextMenu()
         {
             _contextMenuTreeView = new ContextMenuStrip();
-
+            
             var save = new ToolStripMenuItem();
             save.Text = "Save";            
             save.Click += Save;
             save.Image = Properties.Resources.save;
+            save.Tag = treeViewObjects;
 
             var viewDocument = new ToolStripMenuItem();
             viewDocument.Text = "View Document";
@@ -181,7 +224,10 @@ namespace SearchSQL
 
         private void Save(object sender, EventArgs e)
         {
-            _builder.SaveFile(tabControlContent.SelectedTab.Text, (tabControlContent.SelectedTab.Tag as DatabaseObject)?.Content);
+            if ((sender as ToolStripMenuItem)?.Tag is TreeView)            
+                _builder.SaveFile(treeViewObjects.SelectedNode.Text, (treeViewObjects.SelectedNode.Tag as DatabaseObject)?.Content);            
+            else            
+                _builder.SaveFile(tabControlContent.SelectedTab.Text, (tabControlContent.SelectedTab.Tag as DatabaseObject)?.Content);
         }
 
         private void SaveAllDocuments(object sender, EventArgs e)
@@ -194,12 +240,17 @@ namespace SearchSQL
         private void Close(object sender, EventArgs e)
         {
             tabControlContent.TabPages.RemoveByKey(tabControlContent.SelectedTab.Name);
+
+            if (tabControlContent.TabPages.Count == 0) 
+                SetObjectDetailsInvisible();
         }
 
         private void CloseAllDocuments(object sender, EventArgs e)
         {
             foreach (TabPage tab in tabControlContent.TabPages)
                 tabControlContent.TabPages.RemoveByKey(tab.Name);
+
+            SetObjectDetailsInvisible();
         }
 
         private void CloseAllButThis(object sender, EventArgs e)
@@ -220,7 +271,7 @@ namespace SearchSQL
                 tabControlContent.TabPages.Add(tabPage);
                 tabControlContent.SelectedTab = tabControlContent.TabPages[tabPage.Name];
 
-                if (tabControlContent.TabPages.Count == 1)
+                if (tabControlContent.TabPages.Count == 1)                
                     SetObjectDetails(databaseObject);
             }
         }
@@ -277,7 +328,7 @@ namespace SearchSQL
         {
             var databaseObject = e.Node.Tag as DatabaseObject;
 
-            if (databaseObject != null)            
+            if (databaseObject != null && !databaseObject.IsTable)
                 AddTabPage(databaseObject);
         }
 
@@ -331,7 +382,7 @@ namespace SearchSQL
             {
                 treeViewObjects.SelectedNode = e.Node;
 
-                if (e.Node.Parent != null)
+                if (e.Node.Parent != null && !(e.Node.Tag as DatabaseObject).IsTable)
                     _contextMenuTreeView.Show(this, Cursor.Position);
             }
         }
@@ -353,7 +404,11 @@ namespace SearchSQL
         /// <param name="e"></param>
         private void comboBoxConfig_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //ShowProgressBar("Building screen objects...");
+
             BuildScreen(comboBoxConfig.SelectedItem as ConfigItem);
+
+            //HideProgressBar();
         }
     }
 }

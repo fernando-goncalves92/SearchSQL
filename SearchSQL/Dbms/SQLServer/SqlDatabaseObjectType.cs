@@ -7,6 +7,7 @@
         TableFunction,
         View,        
         Trigger,
+        Table,
         Unknown
     }
 }
