@@ -1,10 +1,11 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace SearchSQL
 {
     public interface IBuilder
     {
-        int BuildTreeViewNodes();
+        int BuildTreeViewNodes(IEnumerable<DatabaseObject> objects = null);
         int FindContentAndObjects(string word);
         ImageList LoadImageList();
         TabPage AddTabPage(DatabaseObject obj);

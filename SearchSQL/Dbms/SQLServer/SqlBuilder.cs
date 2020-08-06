@@ -25,18 +25,18 @@ namespace SearchSQL
         private TreeView _treeView;
         private SqlDatabase _db;
 
-        public SqlBuilder(TreeView treeview, ConfigItem config)
+        public SqlBuilder(TreeView treeview, Setting setting)
         {
-            _db = new SqlDatabase(config);
+            _db = new SqlDatabase(setting);
             
             _treeView = treeview;
 
             LoadImageList();
         }
 
-        private int GetImageIndexByType(DatabaseObject obj)
+        private int GetImageIndexByType(SqlDatabaseObjectType type)
         {
-            switch ((obj as SqlDatabaseObject).Type)
+            switch (type)
             {
                 case SqlDatabaseObjectType.Procedure: return PROCEDURE_ICON_INDICE;
                 case SqlDatabaseObjectType.ScalarFunction: return SCALAR_FUNCTION_ICON_INDICE;
@@ -64,81 +64,17 @@ namespace SearchSQL
 
         private void BuildTreeViewRootNodes()
         {
-            var procedures = new TreeNode() { Text = "Procedures", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Procedure };
-            var scalarFunctions = new TreeNode() { Text = "Scalar Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.ScalarFunction };
-            var tableFunctions = new TreeNode() { Text = "Table Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.TableFunction };
-            var triggers = new TreeNode() { Text = "Triggers", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Trigger };
-            var views = new TreeNode() { Text = "Views", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.View };
-            var tables = new TreeNode() { Text = "Tables", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Table };
-
-            _treeView.Nodes.Add(procedures);
-            _treeView.Nodes.Add(scalarFunctions);
-            _treeView.Nodes.Add(tableFunctions);
-            _treeView.Nodes.Add(triggers);
-            _treeView.Nodes.Add(views);
-            _treeView.Nodes.Add(tables);
+            _treeView.Nodes.Add(new TreeNode() { Text = "Procedures", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Procedure });
+            _treeView.Nodes.Add(new TreeNode() { Text = "Scalar Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.ScalarFunction });
+            _treeView.Nodes.Add(new TreeNode() { Text = "Table Functions", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.TableFunction });
+            _treeView.Nodes.Add(new TreeNode() { Text = "Triggers", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Trigger });
+            _treeView.Nodes.Add(new TreeNode() { Text = "Views", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.View });
+            _treeView.Nodes.Add(new TreeNode() { Text = "Tables", ImageIndex = FOLDER_ICON_INDICE, Tag = SqlDatabaseObjectType.Table });
         }
 
-        private void BuildTreeViewNodes(IEnumerable<SqlDatabaseObject> objects)
+        public int BuildTreeViewNodes(IEnumerable<DatabaseObject> objects = null)
         {
-            try
-            {
-                _treeView.BeginUpdate();
-
-                ClearNodes();
-
-                BuildTreeViewRootNodes();
-
-                foreach (var obj in objects)
-                {
-                    var rootNode = GetRootNodeByType(obj.Type);
-
-                    if (rootNode != null)
-                    {
-                        var node = new TreeNode()
-                        {
-                            Text = obj.Name,
-                            ImageIndex = GetImageIndexByType(obj),
-                            SelectedImageIndex = GetImageIndexByType(obj),
-                            Tag = obj
-                        };
-
-                        if (obj.Type == SqlDatabaseObjectType.Table)
-                        {
-                            var columns = _db.GetColumns(obj.Name);
-
-                            foreach (var column in columns)
-                            {
-                                node.Nodes.Add(new TreeNode()
-                                {
-                                    Text = column,
-                                    ImageIndex = COLUMN_ICON_INDICE,
-                                    SelectedImageIndex = COLUMN_ICON_INDICE,
-                                    Tag = obj
-                                });
-                            }
-                        }
-
-                        rootNode.Nodes.Add(node);
-                        rootNode.Expand();
-                    }
-                }
-
-                _treeView.EndUpdate();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(
-                    $"Error trying to filter nodes.\n\nError Message: { error.Message }\n\nStack Trace: { error.StackTrace }",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        public int BuildTreeViewNodes()
-        {
-            int numberOfObjects = 0;
+            var numberOfobjects = 0;
 
             try
             {
@@ -148,11 +84,12 @@ namespace SearchSQL
 
                 BuildTreeViewRootNodes();
 
-                var objects = _db.GetObjectsFromDb();
+                var expandNodes = objects != null;
+                var sqlObjects = objects == null ? _db.GetObjectsFromDb() : objects as List<SqlDatabaseObject>;
+                
+                numberOfobjects = sqlObjects != null ? sqlObjects.Count() : 0;
 
-                numberOfObjects = objects.Count();
-
-                foreach (var obj in objects)
+                foreach (var obj in sqlObjects)
                 {
                     var rootNode = GetRootNodeByType(obj.Type);
 
@@ -161,8 +98,8 @@ namespace SearchSQL
                         var node = new TreeNode()
                         {
                             Text = obj.Name,
-                            ImageIndex = GetImageIndexByType(obj),
-                            SelectedImageIndex = GetImageIndexByType(obj),
+                            ImageIndex = GetImageIndexByType(obj.Type),
+                            SelectedImageIndex = GetImageIndexByType(obj.Type),
                             Tag = obj
                         };
 
@@ -170,19 +107,20 @@ namespace SearchSQL
                         {
                             var columns = _db.GetColumns(obj.Name);
 
-                            foreach (var column in columns)
-                            {
+                            foreach (var column in columns)                            
                                 node.Nodes.Add(new TreeNode()
                                 {
                                     Text = column,
                                     ImageIndex = COLUMN_ICON_INDICE,
                                     SelectedImageIndex = COLUMN_ICON_INDICE,
                                     Tag = obj
-                                });
-                            }
+                                });                            
                         }
 
                         rootNode.Nodes.Add(node);
+
+                        if (expandNodes)
+                            rootNode.Expand();
                     }
                 }
 
@@ -197,20 +135,16 @@ namespace SearchSQL
                     MessageBoxIcon.Error);
             }
 
-            return numberOfObjects;
+            return numberOfobjects;
         }  
         
         public int FindContentAndObjects(string word)
         {
-            int numberOfObjects = 0;
+            var numberOfObjects = 0;
 
             try
             {
-                IEnumerable<SqlDatabaseObject> objects = _db.FindContentAndObjects(word);
-
-                numberOfObjects = objects.Count();
-
-                BuildTreeViewNodes(objects);
+                numberOfObjects = BuildTreeViewNodes(_db.FindContentAndObjects(word));
             }
             catch (Exception error)
             {
@@ -230,17 +164,13 @@ namespace SearchSQL
             {
                 dialog.InitialDirectory = @"C:\";
                 dialog.RestoreDirectory = true;
-                dialog.Filter = "SQL file |*.sql";
-                dialog.Title = "Save the object";
+                dialog.Filter = "SQL Server file |*.sql";
+                dialog.Title = "Save";
                 dialog.FileName = suggestedFileName;
 
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (var tw = new StreamWriter(dialog.FileName, false))
-                    {
-                        tw.WriteLine(fileContent);
-                    }
-                }
+                if (dialog.ShowDialog() == DialogResult.OK)                
+                    using (var writer = new StreamWriter(dialog.FileName, false))
+                        writer.WriteLine(fileContent);
             }
         }
 
@@ -266,7 +196,7 @@ namespace SearchSQL
         {
             var tabPageName = $"tabPage{ obj.Name }";
 
-            var tabPage = new TabPage() { Name = tabPageName, Text = obj.Name, ImageIndex = GetImageIndexByType(obj), Tag = obj };
+            var tabPage = new TabPage() { Name = tabPageName, Text = obj.Name, ImageIndex = GetImageIndexByType((obj as SqlDatabaseObject).Type), Tag = obj };
 
             var elementHost = new ElementHost() { Dock = DockStyle.Fill, TabIndex = 1 };
 

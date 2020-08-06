@@ -8,11 +8,11 @@ namespace SearchSQL
 {
     public class SqlDatabase
     {
-        private readonly ConfigItem _config;
+        private readonly Setting _setting;
 
-        public SqlDatabase(ConfigItem config)
+        public SqlDatabase(Setting setting)
         {
-            _config = config;
+            _setting = setting;
         }
 
         private string GetObjectBody(string objectName)
@@ -45,7 +45,7 @@ namespace SearchSQL
 
             query.Append("  SELECT @CONTENT AS CONTENT                                                            ").Append(Environment.NewLine);
 
-            using (SqlConnection connection = new SqlConnection(_config.StringConnection))
+            using (SqlConnection connection = new SqlConnection(_setting.StringConnection))
             {
                 connection.Open();
 
@@ -92,7 +92,7 @@ namespace SearchSQL
                 query.Append("  GROUP BY                                                                         ").Append(Environment.NewLine);
                 query.Append("      SYS.OBJECTS.NAME, SYS.OBJECTS.TYPE                                           ").Append(Environment.NewLine);
 
-                using (SqlConnection connection = new SqlConnection(_config.StringConnection))
+                using (SqlConnection connection = new SqlConnection(_setting.StringConnection))
                 {
                     connection.Open();
 
@@ -163,7 +163,7 @@ namespace SearchSQL
                 query.Append("  ORDER BY                                                                ").Append(Environment.NewLine);
                 query.Append("      TYPE                                                                ").Append(Environment.NewLine);
                 
-                using (SqlConnection connection = new SqlConnection(_config.StringConnection))
+                using (SqlConnection connection = new SqlConnection(_setting.StringConnection))
                 {
                     connection.Open();
 
@@ -225,7 +225,7 @@ namespace SearchSQL
                 query.Append("  ORDER BY                       ").Append(Environment.NewLine);
                 query.Append("      ORDINAL_POSITION           ").Append(Environment.NewLine);
 
-                using (SqlConnection connection = new SqlConnection(_config.StringConnection))
+                using (SqlConnection connection = new SqlConnection(_setting.StringConnection))
                 {
                     connection.Open();
 

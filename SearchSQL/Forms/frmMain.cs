@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace SearchSQL
@@ -19,26 +17,53 @@ namespace SearchSQL
         {
             InitializeComponent();
 
-            Config.Load();
+            LoadSettings();
 
-            SetComboBoxConfigDataSource();
+            SetComboBoxSettingsDataSource();
 
-            CreateToolStripButtonsEvent();
+            CreateToolStripEvents();
 
             BuilTabControlContextMenu();
 
             BuildTreeViewContextMenu();
 
-            BuildScreen(Config.DefaultConfig);
+            BuildScreen(Setting.DefaultSetting);
         }
 
-        private void BuildScreen(ConfigItem activeConfig)
+        private void LoadSettings()
         {
-            switch (activeConfig.Dbms)
+            if (Setting.FileExists())
+                Setting.Load();
+            else
+            {
+                if (MessageBox.Show(
+                    "It looks like you don't have a settings file yet.\n\nWould like to add a new one?",
+                    "Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    using (var frmSetting = new frmSettings())
+                    {
+                        frmSetting.ShowDialog();
+
+                        if (Setting.FileExists())
+                            Setting.Load();
+                        else                        
+                            Environment.Exit(0);
+                    }
+                }
+                else
+                    Environment.Exit(0);
+            }
+        }
+
+        private void BuildScreen(Setting activeSetting)
+        {
+            switch (activeSetting.Dbms)
             {
                 case Dbms.SQLServer:
                     {
-                        _builder = new SqlBuilder(treeViewObjects, activeConfig);
+                        _builder = new SqlBuilder(treeViewObjects, activeSetting);
 
                         break;
                     }
@@ -56,16 +81,19 @@ namespace SearchSQL
                 MessageBox.Show("This DBMS type was not implemented yet!\n\nPlease, insert a valid DBMS type and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void CreateToolStripButtonsEvent()
+        private void CreateToolStripEvents()
         {
-            comboBoxConfig.SelectedIndexChanged += comboBoxConfig_SelectedIndexChanged;
-            btnMakeDefaultConfig.Click += btnMakeDefaultConfig_Click;
+            comboBoxSetting.SelectedIndexChanged += comboBoxSetting_SelectedIndexChanged;
+            btnMakeDefaultSetting.Click += btnMakeDefaultSetting_Click;
+            toolStripMenuItemSetting.Click += toolStripMenuItemSetting_Click;
+            toolStripMenuItemCloseApplication.Click += toolStripMenuItemCloseApplication_Click;
+            toolStripMenuItemAbout.Click += toolStripMenuItemAbout_Click;
         }
 
-        private void SetComboBoxConfigDataSource()
+        private void SetComboBoxSettingsDataSource()
         {
-            comboBoxConfig.ComboBox.DataSource = Config.Items;
-            comboBoxConfig.ComboBox.SelectedItem = Config.DefaultConfig;
+            comboBoxSetting.ComboBox.DataSource = Setting.Settings;
+            comboBoxSetting.ComboBox.SelectedItem = Setting.DefaultSetting;
         }
 
         private void BuildTreeView()
@@ -112,45 +140,6 @@ namespace SearchSQL
             lblObjectModifyDate.Visible = false;
             separatorFooter1.Visible = false;
             pictureBoxObjectDetails.Visible = false;
-        }
-
-        private void ShowProgressBar(string message = "")
-        {
-            //var worker = new BackgroundWorker();
-
-            //worker.DoWork += (object sender, DoWorkEventArgs e) =>
-            //{
-            //    progressBar.Visible = true;
-
-            //    lblProgressBarMessage.Text = !string.IsNullOrEmpty(message) ? message : lblProgressBarMessage.Text;
-            //    lblProgressBarMessage.Visible = true;                
-            //};
-
-            //worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
-            //{
-            //    lblProgressBarMessage.Text = "Wait...";
-            //    lblProgressBarMessage.Visible = false;
-            //    progressBar.Visible = false;
-            //};
-
-            //worker.RunWorkerAsync();
-
-            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Text = !string.IsNullOrEmpty(message) ? message : lblProgressBarMessage.Text));
-            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Visible = true));
-            //this.BeginInvoke((Action)(() => progressBar.Visible = true));
-
-            //Application.DoEvents();
-        }
-
-        private void HideProgressBar()
-        {
-            //lblProgressBarMessage.Text = "Wait...";
-            //lblProgressBarMessage.Visible = false;
-            //progressBar.Visible = false;
-
-            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Text = "Wait..."));
-            //this.BeginInvoke((Action)(() => lblProgressBarMessage.Visible = false));
-            //this.BeginInvoke((Action)(() => progressBar.Visible = false));
         }
 
         private void BuilTabControlContextMenu()
@@ -276,6 +265,24 @@ namespace SearchSQL
             }
         }
 
+        private void toolStripMenuItemAbout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItemCloseApplication_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void toolStripMenuItemSetting_Click(object sender, EventArgs e)
+        {
+            using (var frmSetting = new frmSettings())
+            {
+                frmSetting.ShowDialog();
+            }
+        }
+
         private void txtContentOrObjectToFind_KeyPress(object sender, KeyPressEventArgs e)
         {
             const int ENTER = 13;
@@ -388,27 +395,23 @@ namespace SearchSQL
         }
 
         /// <summary>
-        /// Change default config clicked
+        /// Change default setting clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnMakeDefaultConfig_Click(object sender, EventArgs e)
+        private void btnMakeDefaultSetting_Click(object sender, EventArgs e)
         {
-            Config.MakeDefaultConfiguration(comboBoxConfig.SelectedItem as ConfigItem);
+            Setting.MakeDefaultSetting(comboBoxSetting.SelectedItem as Setting);
         }
 
         /// <summary>
-        /// Active configuration changed
+        /// Active setting changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBoxConfig_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxSetting_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ShowProgressBar("Building screen objects...");
-
-            BuildScreen(comboBoxConfig.SelectedItem as ConfigItem);
-
-            //HideProgressBar();
-        }
+            BuildScreen(comboBoxSetting.SelectedItem as Setting);
+        }        
     }
 }

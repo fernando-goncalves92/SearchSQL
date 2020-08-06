@@ -30,8 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCloseApplication = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHelper = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.pnlObjectDetails = new System.Windows.Forms.Panel();
             this.toolStripFooter = new System.Windows.Forms.ToolStrip();
@@ -45,12 +48,10 @@
             this.treeViewObjects = new System.Windows.Forms.TreeView();
             this.tabControlContent = new System.Windows.Forms.TabControl();
             this.toolStripHeader = new System.Windows.Forms.ToolStrip();
-            this.lblConfig = new System.Windows.Forms.ToolStripLabel();
-            this.comboBoxConfig = new System.Windows.Forms.ToolStripComboBox();
+            this.lblSetting = new System.Windows.Forms.ToolStripLabel();
+            this.comboBoxSetting = new System.Windows.Forms.ToolStripComboBox();
             this.separatorHeader1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnMakeDefaultConfig = new System.Windows.Forms.ToolStripButton();
-            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.lblProgressBarMessage = new System.Windows.Forms.ToolStripLabel();
+            this.btnMakeDefaultSetting = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanelHeader = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanelPrincipal.SuspendLayout();
@@ -67,25 +68,48 @@
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(219)))), ((int)(((byte)(233)))));
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
+            this.toolStripMenuItemFile,
+            this.toolStripMenuItemHelper});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(90, 29);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "mainMenu";
             // 
-            // toolStripMenuItem1
+            // toolStripMenuItemFile
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(37, 25);
-            this.toolStripMenuItem1.Text = "File";
+            this.toolStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSetting,
+            this.toolStripMenuItemCloseApplication});
+            this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
+            this.toolStripMenuItemFile.Size = new System.Drawing.Size(37, 25);
+            this.toolStripMenuItemFile.Text = "File";
             // 
-            // toolStripMenuItem2
+            // toolStripMenuItemSetting
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(44, 25);
-            this.toolStripMenuItem2.Text = "Help";
+            this.toolStripMenuItemSetting.Name = "toolStripMenuItemSetting";
+            this.toolStripMenuItemSetting.Size = new System.Drawing.Size(167, 22);
+            this.toolStripMenuItemSetting.Text = "Settings";
+            // 
+            // toolStripMenuItemCloseApplication
+            // 
+            this.toolStripMenuItemCloseApplication.Name = "toolStripMenuItemCloseApplication";
+            this.toolStripMenuItemCloseApplication.Size = new System.Drawing.Size(167, 22);
+            this.toolStripMenuItemCloseApplication.Text = "Close Application";
+            // 
+            // toolStripMenuItemHelper
+            // 
+            this.toolStripMenuItemHelper.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemAbout});
+            this.toolStripMenuItemHelper.Name = "toolStripMenuItemHelper";
+            this.toolStripMenuItemHelper.Size = new System.Drawing.Size(44, 25);
+            this.toolStripMenuItemHelper.Text = "Help";
+            // 
+            // toolStripMenuItemAbout
+            // 
+            this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
+            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemAbout.Text = "About";
             // 
             // tableLayoutPanelPrincipal
             // 
@@ -226,61 +250,41 @@
             this.toolStripHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(219)))), ((int)(((byte)(233)))));
             this.toolStripHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblConfig,
-            this.comboBoxConfig,
+            this.lblSetting,
+            this.comboBoxSetting,
             this.separatorHeader1,
-            this.btnMakeDefaultConfig,
-            this.progressBar,
-            this.lblProgressBarMessage});
+            this.btnMakeDefaultSetting});
             this.toolStripHeader.Location = new System.Drawing.Point(90, 0);
             this.toolStripHeader.Name = "toolStripHeader";
             this.toolStripHeader.Size = new System.Drawing.Size(710, 29);
             this.toolStripHeader.TabIndex = 1;
             this.toolStripHeader.Text = "toolStrip1";
             // 
-            // lblConfig
+            // lblSetting
             // 
-            this.lblConfig.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblConfig.Name = "lblConfig";
-            this.lblConfig.Size = new System.Drawing.Size(46, 26);
-            this.lblConfig.Text = "Config:";
+            this.lblSetting.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblSetting.Name = "lblSetting";
+            this.lblSetting.Size = new System.Drawing.Size(47, 26);
+            this.lblSetting.Text = "Setting:";
             // 
-            // comboBoxConfig
+            // comboBoxSetting
             // 
-            this.comboBoxConfig.BackColor = System.Drawing.Color.LemonChiffon;
-            this.comboBoxConfig.Name = "comboBoxConfig";
-            this.comboBoxConfig.Size = new System.Drawing.Size(200, 29);
+            this.comboBoxSetting.BackColor = System.Drawing.Color.LemonChiffon;
+            this.comboBoxSetting.Name = "comboBoxSetting";
+            this.comboBoxSetting.Size = new System.Drawing.Size(200, 29);
             // 
             // separatorHeader1
             // 
             this.separatorHeader1.Name = "separatorHeader1";
             this.separatorHeader1.Size = new System.Drawing.Size(6, 29);
             // 
-            // btnMakeDefaultConfig
+            // btnMakeDefaultSetting
             // 
-            this.btnMakeDefaultConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnMakeDefaultConfig.Image")));
-            this.btnMakeDefaultConfig.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMakeDefaultConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMakeDefaultConfig.Name = "btnMakeDefaultConfig";
-            this.btnMakeDefaultConfig.Size = new System.Drawing.Size(213, 26);
-            this.btnMakeDefaultConfig.Text = "Make this my default configuration";
-            // 
-            // progressBar
-            // 
-            this.progressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.progressBar.Size = new System.Drawing.Size(155, 26);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar.Visible = false;
-            // 
-            // lblProgressBarMessage
-            // 
-            this.lblProgressBarMessage.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.lblProgressBarMessage.Name = "lblProgressBarMessage";
-            this.lblProgressBarMessage.Size = new System.Drawing.Size(40, 26);
-            this.lblProgressBarMessage.Text = "Wait...";
-            this.lblProgressBarMessage.Visible = false;
+            this.btnMakeDefaultSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMakeDefaultSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMakeDefaultSetting.Name = "btnMakeDefaultSetting";
+            this.btnMakeDefaultSetting.Size = new System.Drawing.Size(161, 26);
+            this.btnMakeDefaultSetting.Text = "Make this my default setting";
             // 
             // tableLayoutPanelHeader
             // 
@@ -306,7 +310,7 @@
             this.Controls.Add(this.tableLayoutPanelPrincipal);
             this.Controls.Add(this.tableLayoutPanelHeader);
             this.Name = "frmMain";
-            this.Text = "Search objects and contents in your SQL Server database easily";
+            this.Text = "SearchSQL - Search objects and contents in your SQL Server database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -337,19 +341,20 @@
         private System.Windows.Forms.Panel pnlObjectDetails;
         private System.Windows.Forms.PictureBox pictureBoxObjectDetails;
         private System.Windows.Forms.ToolStrip toolStripHeader;
-        private System.Windows.Forms.ToolStripLabel lblConfig;
-        private System.Windows.Forms.ToolStripComboBox comboBoxConfig;
+        private System.Windows.Forms.ToolStripLabel lblSetting;
+        private System.Windows.Forms.ToolStripComboBox comboBoxSetting;
         private System.Windows.Forms.ToolStripSeparator separatorHeader1;
         private System.Windows.Forms.TabControl tabControlContent;
         private System.Windows.Forms.ToolStrip toolStripFooter;
         private System.Windows.Forms.ToolStripLabel lblObjectCreateDate;
         private System.Windows.Forms.ToolStripSeparator separatorFooter1;
         private System.Windows.Forms.ToolStripLabel lblObjectModifyDate;
-        private System.Windows.Forms.ToolStripButton btnMakeDefaultConfig;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripButton btnMakeDefaultSetting;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFile;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHelper;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHeader;
-        private System.Windows.Forms.ToolStripProgressBar progressBar;
-        private System.Windows.Forms.ToolStripLabel lblProgressBarMessage;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSetting;                
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloseApplication;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
     }
 }
