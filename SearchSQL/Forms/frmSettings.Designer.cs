@@ -45,6 +45,8 @@
             this.btnDeleteSetting = new System.Windows.Forms.Button();
             this.btnUpdateSetting = new System.Windows.Forms.Button();
             this.btnAddSetting = new System.Windows.Forms.Button();
+            this.btnTesteConnectionString = new System.Windows.Forms.Button();
+            this.btnStringConnectionFormat = new System.Windows.Forms.Button();
             this.tableLayoutPanelFooter.SuspendLayout();
             this.tableLayoutPanelHeader.SuspendLayout();
             this.SuspendLayout();
@@ -118,7 +120,7 @@
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
+            this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
             this.tableLayoutPanelHeader.Controls.Add(this.lblAlias, 0, 0);
             this.tableLayoutPanelHeader.Controls.Add(this.lblStringConnection, 0, 1);
             this.tableLayoutPanelHeader.Controls.Add(this.txtAlias, 1, 0);
@@ -129,6 +131,8 @@
             this.tableLayoutPanelHeader.Controls.Add(this.btnDeleteSetting, 3, 2);
             this.tableLayoutPanelHeader.Controls.Add(this.btnUpdateSetting, 3, 1);
             this.tableLayoutPanelHeader.Controls.Add(this.btnAddSetting, 3, 0);
+            this.tableLayoutPanelHeader.Controls.Add(this.btnTesteConnectionString, 2, 1);
+            this.tableLayoutPanelHeader.Controls.Add(this.btnStringConnectionFormat, 2, 2);
             this.tableLayoutPanelHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelHeader.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelHeader.Name = "tableLayoutPanelHeader";
@@ -145,7 +149,7 @@
             this.lblAlias.ForeColor = System.Drawing.Color.White;
             this.lblAlias.Location = new System.Drawing.Point(3, 0);
             this.lblAlias.Name = "lblAlias";
-            this.lblAlias.Size = new System.Drawing.Size(146, 28);
+            this.lblAlias.Size = new System.Drawing.Size(145, 28);
             this.lblAlias.TabIndex = 0;
             this.lblAlias.Text = "Alias:";
             this.lblAlias.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -156,7 +160,7 @@
             this.lblStringConnection.ForeColor = System.Drawing.Color.White;
             this.lblStringConnection.Location = new System.Drawing.Point(3, 28);
             this.lblStringConnection.Name = "lblStringConnection";
-            this.lblStringConnection.Size = new System.Drawing.Size(146, 28);
+            this.lblStringConnection.Size = new System.Drawing.Size(145, 28);
             this.lblStringConnection.TabIndex = 1;
             this.lblStringConnection.Text = "String Connection:";
             this.lblStringConnection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -165,18 +169,18 @@
             // 
             this.txtAlias.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtAlias.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtAlias.Location = new System.Drawing.Point(155, 3);
+            this.txtAlias.Location = new System.Drawing.Point(154, 3);
             this.txtAlias.Name = "txtAlias";
-            this.txtAlias.Size = new System.Drawing.Size(450, 22);
+            this.txtAlias.Size = new System.Drawing.Size(448, 22);
             this.txtAlias.TabIndex = 1;
             // 
             // txtConnectionString
             // 
             this.txtConnectionString.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtConnectionString.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtConnectionString.Location = new System.Drawing.Point(155, 31);
+            this.txtConnectionString.Location = new System.Drawing.Point(154, 31);
             this.txtConnectionString.Name = "txtConnectionString";
-            this.txtConnectionString.Size = new System.Drawing.Size(450, 22);
+            this.txtConnectionString.Size = new System.Drawing.Size(448, 22);
             this.txtConnectionString.TabIndex = 2;
             // 
             // lblDbms
@@ -185,7 +189,7 @@
             this.lblDbms.ForeColor = System.Drawing.Color.White;
             this.lblDbms.Location = new System.Drawing.Point(3, 56);
             this.lblDbms.Name = "lblDbms";
-            this.lblDbms.Size = new System.Drawing.Size(146, 30);
+            this.lblDbms.Size = new System.Drawing.Size(145, 30);
             this.lblDbms.TabIndex = 4;
             this.lblDbms.Text = "Dbms:";
             this.lblDbms.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -195,9 +199,9 @@
             this.comboBoxDbms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxDbms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDbms.FormattingEnabled = true;
-            this.comboBoxDbms.Location = new System.Drawing.Point(155, 59);
+            this.comboBoxDbms.Location = new System.Drawing.Point(154, 59);
             this.comboBoxDbms.Name = "comboBoxDbms";
-            this.comboBoxDbms.Size = new System.Drawing.Size(450, 23);
+            this.comboBoxDbms.Size = new System.Drawing.Size(448, 23);
             this.comboBoxDbms.TabIndex = 5;
             // 
             // checkBoxDefaultSetting
@@ -205,7 +209,7 @@
             this.checkBoxDefaultSetting.AutoSize = true;
             this.checkBoxDefaultSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxDefaultSetting.ForeColor = System.Drawing.Color.White;
-            this.checkBoxDefaultSetting.Location = new System.Drawing.Point(611, 3);
+            this.checkBoxDefaultSetting.Location = new System.Drawing.Point(608, 3);
             this.checkBoxDefaultSetting.Name = "checkBoxDefaultSetting";
             this.checkBoxDefaultSetting.Size = new System.Drawing.Size(74, 22);
             this.checkBoxDefaultSetting.TabIndex = 6;
@@ -215,9 +219,9 @@
             // btnDeleteSetting
             // 
             this.btnDeleteSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteSetting.Location = new System.Drawing.Point(691, 59);
+            this.btnDeleteSetting.Location = new System.Drawing.Point(688, 59);
             this.btnDeleteSetting.Name = "btnDeleteSetting";
-            this.btnDeleteSetting.Size = new System.Drawing.Size(77, 24);
+            this.btnDeleteSetting.Size = new System.Drawing.Size(80, 24);
             this.btnDeleteSetting.TabIndex = 8;
             this.btnDeleteSetting.Text = "Delete";
             this.btnDeleteSetting.UseVisualStyleBackColor = true;
@@ -226,9 +230,9 @@
             // btnUpdateSetting
             // 
             this.btnUpdateSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateSetting.Location = new System.Drawing.Point(691, 31);
+            this.btnUpdateSetting.Location = new System.Drawing.Point(688, 31);
             this.btnUpdateSetting.Name = "btnUpdateSetting";
-            this.btnUpdateSetting.Size = new System.Drawing.Size(77, 22);
+            this.btnUpdateSetting.Size = new System.Drawing.Size(80, 22);
             this.btnUpdateSetting.TabIndex = 9;
             this.btnUpdateSetting.Text = "Update";
             this.btnUpdateSetting.UseVisualStyleBackColor = true;
@@ -237,13 +241,35 @@
             // btnAddSetting
             // 
             this.btnAddSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddSetting.Location = new System.Drawing.Point(691, 3);
+            this.btnAddSetting.Location = new System.Drawing.Point(688, 3);
             this.btnAddSetting.Name = "btnAddSetting";
-            this.btnAddSetting.Size = new System.Drawing.Size(77, 22);
+            this.btnAddSetting.Size = new System.Drawing.Size(80, 22);
             this.btnAddSetting.TabIndex = 7;
             this.btnAddSetting.Text = "Add";
             this.btnAddSetting.UseVisualStyleBackColor = true;
             this.btnAddSetting.Click += new System.EventHandler(this.btnAddSetting_Click);
+            // 
+            // btnTesteConnectionString
+            // 
+            this.btnTesteConnectionString.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTesteConnectionString.Location = new System.Drawing.Point(608, 31);
+            this.btnTesteConnectionString.Name = "btnTesteConnectionString";
+            this.btnTesteConnectionString.Size = new System.Drawing.Size(74, 22);
+            this.btnTesteConnectionString.TabIndex = 10;
+            this.btnTesteConnectionString.Text = "Test";
+            this.btnTesteConnectionString.UseVisualStyleBackColor = true;
+            this.btnTesteConnectionString.Click += new System.EventHandler(this.btnTesteConnectionString_Click);
+            // 
+            // btnStringConnectionFormat
+            // 
+            this.btnStringConnectionFormat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStringConnectionFormat.Location = new System.Drawing.Point(608, 59);
+            this.btnStringConnectionFormat.Name = "btnStringConnectionFormat";
+            this.btnStringConnectionFormat.Size = new System.Drawing.Size(74, 24);
+            this.btnStringConnectionFormat.TabIndex = 11;
+            this.btnStringConnectionFormat.Text = "Str. Format ";
+            this.btnStringConnectionFormat.UseVisualStyleBackColor = true;
+            this.btnStringConnectionFormat.Click += new System.EventHandler(this.btnStringConnectionFormat_Click);
             // 
             // frmSettings
             // 
@@ -285,5 +311,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderStringConnection;
         private System.Windows.Forms.ColumnHeader columnHeaderDbms;        
         private System.Windows.Forms.Button btnUpdateSetting;
+        private System.Windows.Forms.Button btnTesteConnectionString;
+        private System.Windows.Forms.Button btnStringConnectionFormat;
     }
 }

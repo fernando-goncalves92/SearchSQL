@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace SearchSQL
 {
@@ -69,28 +69,29 @@ namespace SearchSQL
             {   
                 var query = new StringBuilder();
                                                                                               
-                query.Append("  SELECT                                                                           ").Append(Environment.NewLine);                
-                query.Append("      SYS.OBJECTS.NAME                                                             ").Append(Environment.NewLine);
-                query.Append($"    ,CASE TYPE WHEN 'P'  THEN '{ SqlDatabaseObjectType.Procedure }'               ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'TR' THEN '{ SqlDatabaseObjectType.Trigger }'                 ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'FN' THEN '{ SqlDatabaseObjectType.ScalarFunction }'          ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'IS' THEN '{ SqlDatabaseObjectType.ScalarFunction }'          ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'V'  THEN '{ SqlDatabaseObjectType.View }'                    ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'TF' THEN '{ SqlDatabaseObjectType.TableFunction }'           ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'IF' THEN '{ SqlDatabaseObjectType.TableFunction }'           ").Append(Environment.NewLine);
-                query.Append($"               WHEN 'U'  THEN '{ SqlDatabaseObjectType.Table }'                   ").Append(Environment.NewLine);
-                query.Append($"               ELSE '{ SqlDatabaseObjectType.Unknown }'                           ").Append(Environment.NewLine);
-                query.Append("      END AS TYPE                                                                  ").Append(Environment.NewLine);
-                query.Append("     ,MAX(SYS.OBJECTS.CREATE_DATE) AS CREATE_DATE                                  ").Append(Environment.NewLine);
-                query.Append("     ,MAX(SYS.OBJECTS.MODIFY_DATE) AS MODIFY_DATE                                  ").Append(Environment.NewLine);
-                query.Append("  FROM                                                                             ").Append(Environment.NewLine); 
-                query.Append("      SYS.OBJECTS                                                                  ").Append(Environment.NewLine);
-                query.Append("  LEFT JOIN SYSCOMMENTS ON                                                         ").Append(Environment.NewLine);                
-                query.Append($"     SYS.OBJECTS.OBJECT_ID = SYSCOMMENTS.ID                                       ").Append(Environment.NewLine);                
-                query.Append("  WHERE                                                                            ").Append(Environment.NewLine);
-                query.Append($"      SYSCOMMENTS.TEXT LIKE '%{ word }%' OR SYS.OBJECTS.NAME LIKE '%{ word }%'    ").Append(Environment.NewLine);
-                query.Append("  GROUP BY                                                                         ").Append(Environment.NewLine);
-                query.Append("      SYS.OBJECTS.NAME, SYS.OBJECTS.TYPE                                           ").Append(Environment.NewLine);
+                query.Append("  SELECT                                                                        ").Append(Environment.NewLine);                
+                query.Append("      SYS.OBJECTS.NAME                                                          ").Append(Environment.NewLine);
+                query.Append($"    ,CASE TYPE WHEN 'P'  THEN '{ SqlDatabaseObjectType.Procedure }'            ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'TR' THEN '{ SqlDatabaseObjectType.Trigger }'              ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'FN' THEN '{ SqlDatabaseObjectType.ScalarFunction }'       ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'IS' THEN '{ SqlDatabaseObjectType.ScalarFunction }'       ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'V'  THEN '{ SqlDatabaseObjectType.View }'                 ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'TF' THEN '{ SqlDatabaseObjectType.TableFunction }'        ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'IF' THEN '{ SqlDatabaseObjectType.TableFunction }'        ").Append(Environment.NewLine);
+                query.Append($"               WHEN 'U'  THEN '{ SqlDatabaseObjectType.Table }'                ").Append(Environment.NewLine);
+                query.Append($"               ELSE '{ SqlDatabaseObjectType.Unknown }'                        ").Append(Environment.NewLine);
+                query.Append("      END AS TYPE                                                               ").Append(Environment.NewLine);
+                query.Append("     ,MAX(SYS.OBJECTS.CREATE_DATE) AS CREATE_DATE                               ").Append(Environment.NewLine);
+                query.Append("     ,MAX(SYS.OBJECTS.MODIFY_DATE) AS MODIFY_DATE                               ").Append(Environment.NewLine);
+                query.Append("     ,MAX(DB_NAME()) AS [DATABASE]                                              ").Append(Environment.NewLine);
+                query.Append("  FROM                                                                          ").Append(Environment.NewLine); 
+                query.Append("      SYS.OBJECTS                                                               ").Append(Environment.NewLine);
+                query.Append("  LEFT JOIN SYSCOMMENTS ON                                                      ").Append(Environment.NewLine);                
+                query.Append($"     SYS.OBJECTS.OBJECT_ID = SYSCOMMENTS.ID                                    ").Append(Environment.NewLine);                
+                query.Append("  WHERE                                                                         ").Append(Environment.NewLine);
+                query.Append($"      SYSCOMMENTS.TEXT LIKE '%{ word }%' OR SYS.OBJECTS.NAME LIKE '%{ word }%' ").Append(Environment.NewLine);
+                query.Append("  GROUP BY                                                                      ").Append(Environment.NewLine);
+                query.Append("      SYS.OBJECTS.NAME, SYS.OBJECTS.TYPE                                        ").Append(Environment.NewLine);
 
                 using (SqlConnection connection = new SqlConnection(_setting.StringConnection))
                 {
@@ -113,7 +114,8 @@ namespace SearchSQL
                                         GetObjectBody(reader["NAME"].ToString()),
                                         Convert.ToDateTime(reader["CREATE_DATE"]),
                                         Convert.ToDateTime(reader["MODIFY_DATE"]),
-                                        convertedType);
+                                        convertedType,
+                                        reader["DATABASE"].ToString());
 
                                     objectsAndContents.Add(databaseObj);
                                 }
@@ -156,6 +158,7 @@ namespace SearchSQL
                 query.Append("      END AS TYPE                                                         ").Append(Environment.NewLine);
                 query.Append("     ,SYS.OBJECTS.CREATE_DATE                                             ").Append(Environment.NewLine);
                 query.Append("     ,SYS.OBJECTS.MODIFY_DATE                                             ").Append(Environment.NewLine);
+                query.Append("     ,DB_NAME() AS [DATABASE]                                             ").Append(Environment.NewLine);
                 query.Append("  FROM                                                                    ").Append(Environment.NewLine);
                 query.Append("      SYS.OBJECTS                                                         ").Append(Environment.NewLine);
                 query.Append("  WHERE                                                                   ").Append(Environment.NewLine);
@@ -184,7 +187,8 @@ namespace SearchSQL
                                         GetObjectBody(reader["NAME"].ToString()),
                                         Convert.ToDateTime(reader["CREATE_DATE"]),
                                         Convert.ToDateTime(reader["MODIFY_DATE"]),
-                                        convertedType);
+                                        convertedType,
+                                        reader["DATABASE"].ToString());
 
                                     objects.Add(databaseObj);
                                 }
@@ -259,6 +263,17 @@ namespace SearchSQL
             }
 
             return columns;
+        }
+
+        public void TestConnectionString(string connectionString)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                connection.Close();
+            }
+
+            MessageBox.Show("Successfully connected!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

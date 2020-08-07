@@ -10,5 +10,7 @@ namespace SearchSQL
         ImageList LoadImageList();
         TabPage AddTabPage(DatabaseObject obj);
         void SaveFile(string suggestedFileName, string fileContent);
+        string GetConnectionStringFormat();
+        void TestConnectionString(string connectionString);        
     }
 }

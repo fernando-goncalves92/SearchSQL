@@ -29,18 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSetting = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemCloseApplication = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemHelper = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.pnlObjectDetails = new System.Windows.Forms.Panel();
             this.toolStripFooter = new System.Windows.Forms.ToolStrip();
             this.lblObjectCreateDate = new System.Windows.Forms.ToolStripLabel();
             this.separatorFooter1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblObjectModifyDate = new System.Windows.Forms.ToolStripLabel();
+            this.lblDatabase = new System.Windows.Forms.ToolStripLabel();
+            this.separatorFooter2 = new System.Windows.Forms.ToolStripSeparator();
             this.pictureBoxObjectDetails = new System.Windows.Forms.PictureBox();
             this.pnlFooterTotal = new System.Windows.Forms.Panel();
             this.lblFooterTotal = new System.Windows.Forms.Label();
@@ -52,8 +48,10 @@
             this.comboBoxSetting = new System.Windows.Forms.ToolStripComboBox();
             this.separatorHeader1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMakeDefaultSetting = new System.Windows.Forms.ToolStripButton();
+            this.btnAbout = new System.Windows.Forms.ToolStripButton();
+            this.separatorHeader2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSettings = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanelHeader = new System.Windows.Forms.TableLayoutPanel();
-            this.menuStrip1.SuspendLayout();
             this.tableLayoutPanelPrincipal.SuspendLayout();
             this.pnlObjectDetails.SuspendLayout();
             this.toolStripFooter.SuspendLayout();
@@ -62,54 +60,6 @@
             this.toolStripHeader.SuspendLayout();
             this.tableLayoutPanelHeader.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(219)))), ((int)(((byte)(233)))));
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemFile,
-            this.toolStripMenuItemHelper});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(90, 29);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "mainMenu";
-            // 
-            // toolStripMenuItemFile
-            // 
-            this.toolStripMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemSetting,
-            this.toolStripMenuItemCloseApplication});
-            this.toolStripMenuItemFile.Name = "toolStripMenuItemFile";
-            this.toolStripMenuItemFile.Size = new System.Drawing.Size(37, 25);
-            this.toolStripMenuItemFile.Text = "File";
-            // 
-            // toolStripMenuItemSetting
-            // 
-            this.toolStripMenuItemSetting.Name = "toolStripMenuItemSetting";
-            this.toolStripMenuItemSetting.Size = new System.Drawing.Size(167, 22);
-            this.toolStripMenuItemSetting.Text = "Settings";
-            // 
-            // toolStripMenuItemCloseApplication
-            // 
-            this.toolStripMenuItemCloseApplication.Name = "toolStripMenuItemCloseApplication";
-            this.toolStripMenuItemCloseApplication.Size = new System.Drawing.Size(167, 22);
-            this.toolStripMenuItemCloseApplication.Text = "Close Application";
-            // 
-            // toolStripMenuItemHelper
-            // 
-            this.toolStripMenuItemHelper.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemAbout});
-            this.toolStripMenuItemHelper.Name = "toolStripMenuItemHelper";
-            this.toolStripMenuItemHelper.Size = new System.Drawing.Size(44, 25);
-            this.toolStripMenuItemHelper.Text = "Help";
-            // 
-            // toolStripMenuItemAbout
-            // 
-            this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
-            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(107, 22);
-            this.toolStripMenuItemAbout.Text = "About";
             // 
             // tableLayoutPanelPrincipal
             // 
@@ -130,7 +80,7 @@
             this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95F));
             this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 421);
+            this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 441);
             this.tableLayoutPanelPrincipal.TabIndex = 0;
             // 
             // pnlObjectDetails
@@ -139,9 +89,9 @@
             this.pnlObjectDetails.Controls.Add(this.toolStripFooter);
             this.pnlObjectDetails.Controls.Add(this.pictureBoxObjectDetails);
             this.pnlObjectDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlObjectDetails.Location = new System.Drawing.Point(263, 404);
+            this.pnlObjectDetails.Location = new System.Drawing.Point(263, 423);
             this.pnlObjectDetails.Name = "pnlObjectDetails";
-            this.pnlObjectDetails.Size = new System.Drawing.Size(534, 14);
+            this.pnlObjectDetails.Size = new System.Drawing.Size(534, 15);
             this.pnlObjectDetails.TabIndex = 0;
             // 
             // toolStripFooter
@@ -152,29 +102,45 @@
             this.toolStripFooter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblObjectCreateDate,
             this.separatorFooter1,
-            this.lblObjectModifyDate});
+            this.lblObjectModifyDate,
+            this.lblDatabase,
+            this.separatorFooter2});
             this.toolStripFooter.Location = new System.Drawing.Point(20, 0);
             this.toolStripFooter.Name = "toolStripFooter";
-            this.toolStripFooter.Size = new System.Drawing.Size(514, 14);
+            this.toolStripFooter.Size = new System.Drawing.Size(514, 15);
             this.toolStripFooter.TabIndex = 3;
             this.toolStripFooter.Text = "toolStrip2";
             // 
             // lblObjectCreateDate
             // 
             this.lblObjectCreateDate.Name = "lblObjectCreateDate";
-            this.lblObjectCreateDate.Size = new System.Drawing.Size(177, 11);
+            this.lblObjectCreateDate.Size = new System.Drawing.Size(177, 12);
             this.lblObjectCreateDate.Text = "Create Date: 06/06/1992 00:00:00";
             // 
             // separatorFooter1
             // 
             this.separatorFooter1.Name = "separatorFooter1";
-            this.separatorFooter1.Size = new System.Drawing.Size(6, 14);
+            this.separatorFooter1.Size = new System.Drawing.Size(6, 15);
             // 
             // lblObjectModifyDate
             // 
             this.lblObjectModifyDate.Name = "lblObjectModifyDate";
-            this.lblObjectModifyDate.Size = new System.Drawing.Size(181, 11);
+            this.lblObjectModifyDate.Size = new System.Drawing.Size(181, 12);
             this.lblObjectModifyDate.Text = "Modify Date: 06/06/1992 00:00:00";
+            // 
+            // lblDatabase
+            // 
+            this.lblDatabase.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.lblDatabase.Name = "lblDatabase";
+            this.lblDatabase.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.lblDatabase.Size = new System.Drawing.Size(60, 12);
+            this.lblDatabase.Text = "Database";
+            // 
+            // separatorFooter2
+            // 
+            this.separatorFooter2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.separatorFooter2.Name = "separatorFooter2";
+            this.separatorFooter2.Size = new System.Drawing.Size(6, 15);
             // 
             // pictureBoxObjectDetails
             // 
@@ -182,7 +148,7 @@
             this.pictureBoxObjectDetails.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxObjectDetails.Image")));
             this.pictureBoxObjectDetails.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxObjectDetails.Name = "pictureBoxObjectDetails";
-            this.pictureBoxObjectDetails.Size = new System.Drawing.Size(20, 14);
+            this.pictureBoxObjectDetails.Size = new System.Drawing.Size(20, 15);
             this.pictureBoxObjectDetails.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxObjectDetails.TabIndex = 2;
             this.pictureBoxObjectDetails.TabStop = false;
@@ -192,9 +158,9 @@
             this.pnlFooterTotal.BackColor = System.Drawing.Color.Khaki;
             this.pnlFooterTotal.Controls.Add(this.lblFooterTotal);
             this.pnlFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFooterTotal.Location = new System.Drawing.Point(3, 404);
+            this.pnlFooterTotal.Location = new System.Drawing.Point(3, 423);
             this.pnlFooterTotal.Name = "pnlFooterTotal";
-            this.pnlFooterTotal.Size = new System.Drawing.Size(254, 14);
+            this.pnlFooterTotal.Size = new System.Drawing.Size(254, 15);
             this.pnlFooterTotal.TabIndex = 0;
             // 
             // lblFooterTotal
@@ -203,7 +169,7 @@
             this.lblFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFooterTotal.Location = new System.Drawing.Point(0, 0);
             this.lblFooterTotal.Name = "lblFooterTotal";
-            this.lblFooterTotal.Size = new System.Drawing.Size(254, 14);
+            this.lblFooterTotal.Size = new System.Drawing.Size(254, 15);
             this.lblFooterTotal.TabIndex = 0;
             this.lblFooterTotal.Text = "Found objects: 0";
             this.lblFooterTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -228,7 +194,7 @@
             this.treeViewObjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewObjects.Location = new System.Drawing.Point(3, 33);
             this.treeViewObjects.Name = "treeViewObjects";
-            this.treeViewObjects.Size = new System.Drawing.Size(254, 365);
+            this.treeViewObjects.Size = new System.Drawing.Size(254, 384);
             this.treeViewObjects.TabIndex = 2;
             this.treeViewObjects.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewObjects_NodeMouseClick);
             this.treeViewObjects.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewOfObjects_NodeMouseDoubleClick);
@@ -240,7 +206,7 @@
             this.tabControlContent.Name = "tabControlContent";
             this.tableLayoutPanelPrincipal.SetRowSpan(this.tabControlContent, 2);
             this.tabControlContent.SelectedIndex = 0;
-            this.tabControlContent.Size = new System.Drawing.Size(534, 395);
+            this.tabControlContent.Size = new System.Drawing.Size(534, 414);
             this.tabControlContent.TabIndex = 3;
             this.tabControlContent.SelectedIndexChanged += new System.EventHandler(this.tabControlContent_SelectedIndexChanged);
             this.tabControlContent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControlContent_MouseClick);
@@ -248,15 +214,20 @@
             // toolStripHeader
             // 
             this.toolStripHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(219)))), ((int)(((byte)(233)))));
+            this.tableLayoutPanelHeader.SetColumnSpan(this.toolStripHeader, 2);
             this.toolStripHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripHeader.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblSetting,
             this.comboBoxSetting,
             this.separatorHeader1,
-            this.btnMakeDefaultSetting});
-            this.toolStripHeader.Location = new System.Drawing.Point(90, 0);
+            this.btnMakeDefaultSetting,
+            this.btnAbout,
+            this.separatorHeader2,
+            this.btnSettings});
+            this.toolStripHeader.Location = new System.Drawing.Point(0, 0);
             this.toolStripHeader.Name = "toolStripHeader";
-            this.toolStripHeader.Size = new System.Drawing.Size(710, 29);
+            this.toolStripHeader.Size = new System.Drawing.Size(800, 29);
             this.toolStripHeader.TabIndex = 1;
             this.toolStripHeader.Text = "toolStrip1";
             // 
@@ -280,11 +251,36 @@
             // 
             // btnMakeDefaultSetting
             // 
+            this.btnMakeDefaultSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnMakeDefaultSetting.Image")));
             this.btnMakeDefaultSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMakeDefaultSetting.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMakeDefaultSetting.Name = "btnMakeDefaultSetting";
-            this.btnMakeDefaultSetting.Size = new System.Drawing.Size(161, 26);
+            this.btnMakeDefaultSetting.Size = new System.Drawing.Size(177, 26);
             this.btnMakeDefaultSetting.Text = "Make this my default setting";
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnAbout.Image = ((System.Drawing.Image)(resources.GetObject("btnAbout.Image")));
+            this.btnAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(60, 26);
+            this.btnAbout.Text = "About";
+            // 
+            // separatorHeader2
+            // 
+            this.separatorHeader2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.separatorHeader2.Name = "separatorHeader2";
+            this.separatorHeader2.Size = new System.Drawing.Size(6, 29);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(69, 26);
+            this.btnSettings.Text = "Settings";
             // 
             // tableLayoutPanelHeader
             // 
@@ -292,8 +288,7 @@
             this.tableLayoutPanelHeader.ColumnCount = 2;
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelHeader.Controls.Add(this.menuStrip1, 0, 0);
-            this.tableLayoutPanelHeader.Controls.Add(this.toolStripHeader, 1, 0);
+            this.tableLayoutPanelHeader.Controls.Add(this.toolStripHeader, 0, 0);
             this.tableLayoutPanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanelHeader.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelHeader.Name = "tableLayoutPanelHeader";
@@ -306,14 +301,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 470);
             this.Controls.Add(this.tableLayoutPanelPrincipal);
             this.Controls.Add(this.tableLayoutPanelHeader);
             this.Name = "frmMain";
             this.Text = "SearchSQL - Search objects and contents in your SQL Server database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.tableLayoutPanelPrincipal.ResumeLayout(false);
             this.tableLayoutPanelPrincipal.PerformLayout();
             this.pnlObjectDetails.ResumeLayout(false);
@@ -331,8 +324,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPrincipal;
         private System.Windows.Forms.TreeView treeViewObjects;
         private System.Windows.Forms.TextBox txtContentOrObjectToFind;        
@@ -350,11 +341,11 @@
         private System.Windows.Forms.ToolStripSeparator separatorFooter1;
         private System.Windows.Forms.ToolStripLabel lblObjectModifyDate;
         private System.Windows.Forms.ToolStripButton btnMakeDefaultSetting;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFile;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHelper;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelHeader;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSetting;                
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloseApplication;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
+        private System.Windows.Forms.ToolStripSeparator separatorFooter2;
+        private System.Windows.Forms.ToolStripLabel lblDatabase;
+        private System.Windows.Forms.ToolStripButton btnAbout;
+        private System.Windows.Forms.ToolStripSeparator separatorHeader2;
+        private System.Windows.Forms.ToolStripButton btnSettings;
     }
 }

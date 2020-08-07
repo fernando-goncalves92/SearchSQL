@@ -85,9 +85,8 @@ namespace SearchSQL
         {
             comboBoxSetting.SelectedIndexChanged += comboBoxSetting_SelectedIndexChanged;
             btnMakeDefaultSetting.Click += btnMakeDefaultSetting_Click;
-            toolStripMenuItemSetting.Click += toolStripMenuItemSetting_Click;
-            toolStripMenuItemCloseApplication.Click += toolStripMenuItemCloseApplication_Click;
-            toolStripMenuItemAbout.Click += toolStripMenuItemAbout_Click;
+            btnSettings.Click += btnSettings_Click;
+            btnAbout.Click += btnAbout_Click;
         }
 
         private void SetComboBoxSettingsDataSource()
@@ -115,8 +114,10 @@ namespace SearchSQL
         {
             lblObjectCreateDate.Visible = false;
             lblObjectModifyDate.Visible = false;
+            lblDatabase.Visible = false;
             separatorFooter1.Visible = false;
-            
+            separatorFooter2.Visible = false;
+
             if (obj.CreateDate != null)
             {
                 lblObjectCreateDate.Text = $"Create Date: { obj.CreateDate.ToString("yyyy-MM-dd HH:mm:ss") }";
@@ -132,13 +133,23 @@ namespace SearchSQL
                 separatorFooter1.Visible = true;
                 pictureBoxObjectDetails.Visible = true;
             }
+
+            if (!string.IsNullOrEmpty(obj.Database))
+            {
+                lblDatabase.Text = obj.Database;
+                lblDatabase.Visible = true;
+                separatorFooter2.Visible = true;
+                pictureBoxObjectDetails.Visible = true;
+            }
         }
 
         private void SetObjectDetailsInvisible()
         {
             lblObjectCreateDate.Visible = false;
             lblObjectModifyDate.Visible = false;
+            lblDatabase.Visible = false;
             separatorFooter1.Visible = false;
+            separatorFooter2.Visible = false;
             pictureBoxObjectDetails.Visible = false;
         }
 
@@ -270,12 +281,12 @@ namespace SearchSQL
 
         }
 
-        private void toolStripMenuItemCloseApplication_Click(object sender, EventArgs e)
+        private void btnAbout_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            
         }
 
-        private void toolStripMenuItemSetting_Click(object sender, EventArgs e)
+        private void btnSettings_Click(object sender, EventArgs e)
         {
             using (var frmSetting = new frmSettings())
             {

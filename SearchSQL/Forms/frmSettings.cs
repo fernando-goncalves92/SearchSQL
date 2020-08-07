@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,6 +8,8 @@ namespace SearchSQL
 {
     public partial class frmSettings : Form
     {
+        private IBuilder _builder;
+
         public frmSettings()
         {
             InitializeComponent();
@@ -132,6 +135,52 @@ namespace SearchSQL
                     LoadExistingSettingsInListView();
                 }
             }
+        }
+
+        private void btnTesteConnectionString_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtConnectionString.Text))
+                    MessageBox.Show("You must inform the connection string!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (comboBoxDbms.SelectedIndex == -1)
+                    MessageBox.Show("You must select the Dbms!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    switch ((Dbms)comboBoxDbms.SelectedItem)
+                    {
+                        case Dbms.SQLServer: _builder = new SqlBuilder(null, Setting.DefaultSetting); break;
+                    }
+
+                    _builder.TestConnectionString(txtConnectionString.Text);
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show($"Error trying to test the connection string!\n\nError message: { error.Message }", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnStringConnectionFormat_Click(object sender, EventArgs e)
+        {
+            if (comboBoxDbms.SelectedIndex == -1)
+                MessageBox.Show("You must select the Dbms!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            {   
+                switch ((Dbms)comboBoxDbms.SelectedItem)
+                {
+                    case Dbms.SQLServer: _builder = new SqlBuilder(null, Setting.DefaultSetting); break;
+                }
+
+                var stringConnectionFormat = _builder.GetConnectionStringFormat();
+
+                if (MessageBox.Show(
+                    $"That's the connection string format you need to build:\n\n{ stringConnectionFormat }\n\nPress 'OK' to copy to clipboard.",
+                    "Information",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information) == DialogResult.OK)
+                    Clipboard.SetText(stringConnectionFormat);
+            }            
         }
 
         private void listViewSettings_SelectedIndexChanged(object sender, EventArgs e)

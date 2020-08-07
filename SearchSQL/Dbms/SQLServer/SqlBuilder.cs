@@ -28,10 +28,13 @@ namespace SearchSQL
         public SqlBuilder(TreeView treeview, Setting setting)
         {
             _db = new SqlDatabase(setting);
-            
-            _treeView = treeview;
 
-            LoadImageList();
+            if (treeview != null)
+            {
+                _treeView = treeview;
+
+                LoadImageList();
+            }
         }
 
         private int GetImageIndexByType(SqlDatabaseObjectType type)
@@ -219,6 +222,16 @@ namespace SearchSQL
             tabPage.Controls.Add(elementHost);
 
             return tabPage;
+        }
+
+        public string GetConnectionStringFormat()
+        {
+            return "Server=###;Database=###;User Id=###; Password=###;";
+        }
+
+        public void TestConnectionString(string connectionString)
+        {
+            _db.TestConnectionString(connectionString);            
         }
     }
 }
