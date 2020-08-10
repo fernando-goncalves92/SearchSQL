@@ -216,7 +216,6 @@
             this.toolStripHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(219)))), ((int)(((byte)(233)))));
             this.tableLayoutPanelHeader.SetColumnSpan(this.toolStripHeader, 2);
             this.toolStripHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStripHeader.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblSetting,
             this.comboBoxSetting,
@@ -235,8 +234,8 @@
             // 
             this.lblSetting.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblSetting.Name = "lblSetting";
-            this.lblSetting.Size = new System.Drawing.Size(47, 26);
-            this.lblSetting.Text = "Setting:";
+            this.lblSetting.Size = new System.Drawing.Size(83, 26);
+            this.lblSetting.Text = "Active Setting:";
             // 
             // comboBoxSetting
             // 
@@ -304,6 +303,7 @@
             this.ClientSize = new System.Drawing.Size(800, 470);
             this.Controls.Add(this.tableLayoutPanelPrincipal);
             this.Controls.Add(this.tableLayoutPanelHeader);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "SearchSQL - Search objects and contents in your SQL Server database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

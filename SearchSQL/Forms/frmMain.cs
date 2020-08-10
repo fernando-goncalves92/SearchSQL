@@ -193,6 +193,8 @@ namespace SearchSQL
             _contextMenuTabControl.Items.Add(close);
             _contextMenuTabControl.Items.Add(closeAllDocuments);
             _contextMenuTabControl.Items.Add(closeAllButThis);
+
+            tabControlContent.ContextMenuStrip = _contextMenuTabControl;
         }
 
         private void BuildTreeViewContextMenu()
@@ -276,14 +278,12 @@ namespace SearchSQL
             }
         }
 
-        private void toolStripMenuItemAbout_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAbout_Click(object sender, EventArgs e)
         {
-            
+            using (var about = new frmAbout())
+            {
+                about.ShowDialog();
+            }
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -423,6 +423,6 @@ namespace SearchSQL
         private void comboBoxSetting_SelectedIndexChanged(object sender, EventArgs e)
         {
             BuildScreen(comboBoxSetting.SelectedItem as Setting);
-        }        
+        }
     }
 }
