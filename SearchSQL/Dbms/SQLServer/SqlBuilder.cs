@@ -29,12 +29,8 @@ namespace SearchSQL
         {
             _db = new SqlDatabase(setting);
 
-            if (treeview != null)
-            {
+            if (treeview != null)            
                 _treeView = treeview;
-
-                LoadImageList();
-            }
         }
 
         private int GetImageIndexByType(SqlDatabaseObjectType type)
@@ -181,14 +177,14 @@ namespace SearchSQL
         {
             ImageList images = new ImageList();
 
-            images.Images.Add(Image.FromFile(@"images\sql\folder.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\procedure.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\scalarFunction.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\tableFunction.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\view.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\trigger.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\table.png"));
-            images.Images.Add(Image.FromFile(@"images\sql\column.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\folder.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\procedure.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\scalarFunction.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\tableFunction.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\view.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\trigger.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\table.png"));
+            images.Images.Add(Image.FromFile(@"..\..\..\images\sql\column.png"));
 
             _treeView.ImageList = images;
 
