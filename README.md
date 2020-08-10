@@ -16,7 +16,8 @@ Note
 =====================
 For now this application only works with SQL Server database, however, feel free to fork this repository and implement your favorite DBMS.
 
-## About:
+About
+=====================
 The SearchSQL  was developed by [Fernando Gonçalves](https://www.linkedin.com/in/fernando-henrique-931823a6/).
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/fernando-goncalves92/SearchSQL) 
