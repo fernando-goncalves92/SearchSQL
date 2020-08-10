@@ -16,6 +16,9 @@ Note
 =====================
 For now this application only works with SQL Server database, however, feel free to fork this repository and implement your favorite DBMS.
 
+## About:
+The SearchSQL  was developed by [Fernando Gonçalves](https://www.linkedin.com/in/fernando-henrique-931823a6/).
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/fernando-goncalves92/SearchSQL) 
 [![Build Status](https://img.shields.io/appveyor/ci/thiagoloureiro/netcore-jwt-integrator-extension/master.svg)](https://ci.appveyor.com/project/thiagoloureiro/netcore-jwt-integrator-extension)
 ![Net Core Version](https://img.shields.io/badge/.net%20core-3.0-blueviolet)
