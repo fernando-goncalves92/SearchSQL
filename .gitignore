@@ -33,6 +33,7 @@ msbuild.wrn
 BinNiguriSpareParts/
 BinRunTemplates/
 .vs/
+*.pubxml
 
 # NuGet Packages
 *.nupkg

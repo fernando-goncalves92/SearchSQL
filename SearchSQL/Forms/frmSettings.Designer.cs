@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
             this.tableLayoutPanelFooter = new System.Windows.Forms.TableLayoutPanel();
             this.listViewSettings = new System.Windows.Forms.ListView();
             this.columnHeaderAlias = new System.Windows.Forms.ColumnHeader();
@@ -120,7 +121,7 @@
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanelHeader.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
             this.tableLayoutPanelHeader.Controls.Add(this.lblAlias, 0, 0);
             this.tableLayoutPanelHeader.Controls.Add(this.lblStringConnection, 0, 1);
             this.tableLayoutPanelHeader.Controls.Add(this.txtAlias, 1, 0);
@@ -171,7 +172,7 @@
             this.txtAlias.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtAlias.Location = new System.Drawing.Point(154, 3);
             this.txtAlias.Name = "txtAlias";
-            this.txtAlias.Size = new System.Drawing.Size(448, 22);
+            this.txtAlias.Size = new System.Drawing.Size(447, 22);
             this.txtAlias.TabIndex = 1;
             // 
             // txtConnectionString
@@ -180,7 +181,7 @@
             this.txtConnectionString.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtConnectionString.Location = new System.Drawing.Point(154, 31);
             this.txtConnectionString.Name = "txtConnectionString";
-            this.txtConnectionString.Size = new System.Drawing.Size(448, 22);
+            this.txtConnectionString.Size = new System.Drawing.Size(447, 22);
             this.txtConnectionString.TabIndex = 2;
             // 
             // lblDbms
@@ -201,7 +202,7 @@
             this.comboBoxDbms.FormattingEnabled = true;
             this.comboBoxDbms.Location = new System.Drawing.Point(154, 59);
             this.comboBoxDbms.Name = "comboBoxDbms";
-            this.comboBoxDbms.Size = new System.Drawing.Size(448, 23);
+            this.comboBoxDbms.Size = new System.Drawing.Size(447, 23);
             this.comboBoxDbms.TabIndex = 5;
             // 
             // checkBoxDefaultSetting
@@ -209,7 +210,7 @@
             this.checkBoxDefaultSetting.AutoSize = true;
             this.checkBoxDefaultSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxDefaultSetting.ForeColor = System.Drawing.Color.White;
-            this.checkBoxDefaultSetting.Location = new System.Drawing.Point(608, 3);
+            this.checkBoxDefaultSetting.Location = new System.Drawing.Point(607, 3);
             this.checkBoxDefaultSetting.Name = "checkBoxDefaultSetting";
             this.checkBoxDefaultSetting.Size = new System.Drawing.Size(74, 22);
             this.checkBoxDefaultSetting.TabIndex = 6;
@@ -219,9 +220,9 @@
             // btnDeleteSetting
             // 
             this.btnDeleteSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteSetting.Location = new System.Drawing.Point(688, 59);
+            this.btnDeleteSetting.Location = new System.Drawing.Point(687, 59);
             this.btnDeleteSetting.Name = "btnDeleteSetting";
-            this.btnDeleteSetting.Size = new System.Drawing.Size(80, 24);
+            this.btnDeleteSetting.Size = new System.Drawing.Size(81, 24);
             this.btnDeleteSetting.TabIndex = 8;
             this.btnDeleteSetting.Text = "Delete";
             this.btnDeleteSetting.UseVisualStyleBackColor = true;
@@ -230,9 +231,9 @@
             // btnUpdateSetting
             // 
             this.btnUpdateSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateSetting.Location = new System.Drawing.Point(688, 31);
+            this.btnUpdateSetting.Location = new System.Drawing.Point(687, 31);
             this.btnUpdateSetting.Name = "btnUpdateSetting";
-            this.btnUpdateSetting.Size = new System.Drawing.Size(80, 22);
+            this.btnUpdateSetting.Size = new System.Drawing.Size(81, 22);
             this.btnUpdateSetting.TabIndex = 9;
             this.btnUpdateSetting.Text = "Update";
             this.btnUpdateSetting.UseVisualStyleBackColor = true;
@@ -241,9 +242,9 @@
             // btnAddSetting
             // 
             this.btnAddSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddSetting.Location = new System.Drawing.Point(688, 3);
+            this.btnAddSetting.Location = new System.Drawing.Point(687, 3);
             this.btnAddSetting.Name = "btnAddSetting";
-            this.btnAddSetting.Size = new System.Drawing.Size(80, 22);
+            this.btnAddSetting.Size = new System.Drawing.Size(81, 22);
             this.btnAddSetting.TabIndex = 7;
             this.btnAddSetting.Text = "Add";
             this.btnAddSetting.UseVisualStyleBackColor = true;
@@ -252,7 +253,7 @@
             // btnTesteConnectionString
             // 
             this.btnTesteConnectionString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTesteConnectionString.Location = new System.Drawing.Point(608, 31);
+            this.btnTesteConnectionString.Location = new System.Drawing.Point(607, 31);
             this.btnTesteConnectionString.Name = "btnTesteConnectionString";
             this.btnTesteConnectionString.Size = new System.Drawing.Size(74, 22);
             this.btnTesteConnectionString.TabIndex = 10;
@@ -263,7 +264,7 @@
             // btnStringConnectionFormat
             // 
             this.btnStringConnectionFormat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStringConnectionFormat.Location = new System.Drawing.Point(608, 59);
+            this.btnStringConnectionFormat.Location = new System.Drawing.Point(607, 59);
             this.btnStringConnectionFormat.Name = "btnStringConnectionFormat";
             this.btnStringConnectionFormat.Size = new System.Drawing.Size(74, 24);
             this.btnStringConnectionFormat.TabIndex = 11;
@@ -278,11 +279,11 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.ClientSize = new System.Drawing.Size(777, 362);
             this.Controls.Add(this.tableLayoutPanelFooter);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmSettings";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings Manager";
             this.tableLayoutPanelFooter.ResumeLayout(false);
