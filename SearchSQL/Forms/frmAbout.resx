@@ -57,21 +57,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
+  <data name="lblAbout.Text" xml:space="preserve">
     <value>SearchSQL is an open source .net core 3.0 winforms application.
 
-The main objective of this tool is to assist developers in tasks involving databases. 
+The objective of this tool is to assist developers in tasks involving databases. Forget about your saved T-SQL scripts, which we hardly find when we need them. With this application you can search for objects and contents in your SQL Server database with just a few clicks. Add as many connections as you want and switch between them easily.
 
-Forget about your saved T-SQL scripts, which we hardly find when we need them. With this application you can search for objects and contents directly in your SQL Server database with just a few clicks, add as many connections as you want and switch between them easily.
-
-Note: For now this application only works with SQL Server database, however, feel free to fork this repository and implement your favorite DBMS.
+Note: For now this application only works with SQL Server database, however, feel free to fork the repository and implement your favorite DBMS.
 </value>
   </data>
   <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pictureBoxIcon.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAASc9JREFUeF7tvX3QHFWZsJ8qrMIqt8rXPyS8JE/3uGFBQUQXMGiikQSSQAwBSQxL
+        vQAADr0BR/uQrQAASc9JREFUeF7tvX3QHFWZsJ8qrMIqt8rXPyS8JE/3uGFBQUQXMGiikQSSQAwBSQxL
         QmZ6onHzg1pSpmJckE2ByEexC2pEFExFCopIRclWKEQk70YMC2pKIrBU+CmalWwFgWXhDWDk6Z45b989
         Z+DJ89wz0/PdH9dVdZUleaZn+uvcd58+5z6TAAAAAAAAAAAAAAAAACAxmCWTjjDlo11x1Js6S/SLzoKg
         NFKM9JyVoyVnQzfKNurbk23Xv6f+vfIb7M8BAACATjErj5psis4p9UAuQdj3nFtDt4x6zs7Ac58M/UNQ

@@ -29,33 +29,45 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAbout));
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lblAbout = new System.Windows.Forms.Label();
+            this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
+            this.linkLabelGitHub = new System.Windows.Forms.LinkLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblAbout
             // 
-            this.label1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(164, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(7);
-            this.label1.Size = new System.Drawing.Size(305, 263);
-            this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
+            this.lblAbout.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.lblAbout.ForeColor = System.Drawing.Color.White;
+            this.lblAbout.Location = new System.Drawing.Point(164, 0);
+            this.lblAbout.Name = "lblAbout";
+            this.lblAbout.Padding = new System.Windows.Forms.Padding(7);
+            this.lblAbout.Size = new System.Drawing.Size(305, 225);
+            this.lblAbout.TabIndex = 0;
+            this.lblAbout.Text = resources.GetString("lblAbout.Text");
             // 
-            // pictureBox1
+            // pictureBoxIcon
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(164, 263);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBoxIcon.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxIcon.Image")));
+            this.pictureBoxIcon.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxIcon.Name = "pictureBoxIcon";
+            this.pictureBoxIcon.Size = new System.Drawing.Size(164, 263);
+            this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxIcon.TabIndex = 1;
+            this.pictureBoxIcon.TabStop = false;
+            // 
+            // linkLabelGitHub
+            // 
+            this.linkLabelGitHub.AutoSize = true;
+            this.linkLabelGitHub.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.linkLabelGitHub.Location = new System.Drawing.Point(409, 237);
+            this.linkLabelGitHub.Name = "linkLabelGitHub";
+            this.linkLabelGitHub.Size = new System.Drawing.Size(48, 17);
+            this.linkLabelGitHub.TabIndex = 2;
+            this.linkLabelGitHub.TabStop = true;
+            this.linkLabelGitHub.Text = "GitHub";
+            this.linkLabelGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGitHub_LinkClicked);
             // 
             // frmAbout
             // 
@@ -63,22 +75,25 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(57)))), ((int)(((byte)(85)))));
             this.ClientSize = new System.Drawing.Size(469, 263);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.linkLabelGitHub);
+            this.Controls.Add(this.lblAbout);
+            this.Controls.Add(this.pictureBoxIcon);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAbout";
             this.Text = "About";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblAbout;
+        private System.Windows.Forms.PictureBox pictureBoxIcon;
+        private System.Windows.Forms.LinkLabel linkLabelGitHub;
     }
 }
