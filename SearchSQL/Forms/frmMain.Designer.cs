@@ -77,9 +77,8 @@
             this.tableLayoutPanelPrincipal.Name = "tableLayoutPanelPrincipal";
             this.tableLayoutPanelPrincipal.RowCount = 3;
             this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 95F));
-            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanelPrincipal.Size = new System.Drawing.Size(800, 441);
             this.tableLayoutPanelPrincipal.TabIndex = 0;
             // 
@@ -89,9 +88,9 @@
             this.pnlObjectDetails.Controls.Add(this.toolStripFooter);
             this.pnlObjectDetails.Controls.Add(this.pictureBoxObjectDetails);
             this.pnlObjectDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlObjectDetails.Location = new System.Drawing.Point(263, 423);
+            this.pnlObjectDetails.Location = new System.Drawing.Point(263, 414);
             this.pnlObjectDetails.Name = "pnlObjectDetails";
-            this.pnlObjectDetails.Size = new System.Drawing.Size(534, 15);
+            this.pnlObjectDetails.Size = new System.Drawing.Size(534, 24);
             this.pnlObjectDetails.TabIndex = 0;
             // 
             // toolStripFooter
@@ -107,25 +106,25 @@
             this.separatorFooter2});
             this.toolStripFooter.Location = new System.Drawing.Point(20, 0);
             this.toolStripFooter.Name = "toolStripFooter";
-            this.toolStripFooter.Size = new System.Drawing.Size(514, 15);
+            this.toolStripFooter.Size = new System.Drawing.Size(514, 24);
             this.toolStripFooter.TabIndex = 3;
             this.toolStripFooter.Text = "toolStrip2";
             // 
             // lblObjectCreateDate
             // 
             this.lblObjectCreateDate.Name = "lblObjectCreateDate";
-            this.lblObjectCreateDate.Size = new System.Drawing.Size(177, 12);
+            this.lblObjectCreateDate.Size = new System.Drawing.Size(177, 21);
             this.lblObjectCreateDate.Text = "Create Date: 06/06/1992 00:00:00";
             // 
             // separatorFooter1
             // 
             this.separatorFooter1.Name = "separatorFooter1";
-            this.separatorFooter1.Size = new System.Drawing.Size(6, 15);
+            this.separatorFooter1.Size = new System.Drawing.Size(6, 24);
             // 
             // lblObjectModifyDate
             // 
             this.lblObjectModifyDate.Name = "lblObjectModifyDate";
-            this.lblObjectModifyDate.Size = new System.Drawing.Size(181, 12);
+            this.lblObjectModifyDate.Size = new System.Drawing.Size(181, 21);
             this.lblObjectModifyDate.Text = "Modify Date: 06/06/1992 00:00:00";
             // 
             // lblDatabase
@@ -133,14 +132,14 @@
             this.lblDatabase.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.lblDatabase.Name = "lblDatabase";
             this.lblDatabase.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lblDatabase.Size = new System.Drawing.Size(60, 12);
+            this.lblDatabase.Size = new System.Drawing.Size(60, 21);
             this.lblDatabase.Text = "Database";
             // 
             // separatorFooter2
             // 
             this.separatorFooter2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.separatorFooter2.Name = "separatorFooter2";
-            this.separatorFooter2.Size = new System.Drawing.Size(6, 15);
+            this.separatorFooter2.Size = new System.Drawing.Size(6, 24);
             // 
             // pictureBoxObjectDetails
             // 
@@ -148,7 +147,7 @@
             this.pictureBoxObjectDetails.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxObjectDetails.Image")));
             this.pictureBoxObjectDetails.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxObjectDetails.Name = "pictureBoxObjectDetails";
-            this.pictureBoxObjectDetails.Size = new System.Drawing.Size(20, 15);
+            this.pictureBoxObjectDetails.Size = new System.Drawing.Size(20, 24);
             this.pictureBoxObjectDetails.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxObjectDetails.TabIndex = 2;
             this.pictureBoxObjectDetails.TabStop = false;
@@ -158,9 +157,9 @@
             this.pnlFooterTotal.BackColor = System.Drawing.Color.Khaki;
             this.pnlFooterTotal.Controls.Add(this.lblFooterTotal);
             this.pnlFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFooterTotal.Location = new System.Drawing.Point(3, 423);
+            this.pnlFooterTotal.Location = new System.Drawing.Point(3, 414);
             this.pnlFooterTotal.Name = "pnlFooterTotal";
-            this.pnlFooterTotal.Size = new System.Drawing.Size(254, 15);
+            this.pnlFooterTotal.Size = new System.Drawing.Size(254, 24);
             this.pnlFooterTotal.TabIndex = 0;
             // 
             // lblFooterTotal
@@ -169,7 +168,7 @@
             this.lblFooterTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFooterTotal.Location = new System.Drawing.Point(0, 0);
             this.lblFooterTotal.Name = "lblFooterTotal";
-            this.lblFooterTotal.Size = new System.Drawing.Size(254, 15);
+            this.lblFooterTotal.Size = new System.Drawing.Size(254, 24);
             this.lblFooterTotal.TabIndex = 0;
             this.lblFooterTotal.Text = "Found objects: 0";
             this.lblFooterTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -194,7 +193,7 @@
             this.treeViewObjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewObjects.Location = new System.Drawing.Point(3, 33);
             this.treeViewObjects.Name = "treeViewObjects";
-            this.treeViewObjects.Size = new System.Drawing.Size(254, 384);
+            this.treeViewObjects.Size = new System.Drawing.Size(254, 375);
             this.treeViewObjects.TabIndex = 2;
             this.treeViewObjects.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewObjects_NodeMouseClick);
             this.treeViewObjects.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewOfObjects_NodeMouseDoubleClick);
@@ -206,7 +205,7 @@
             this.tabControlContent.Name = "tabControlContent";
             this.tableLayoutPanelPrincipal.SetRowSpan(this.tabControlContent, 2);
             this.tabControlContent.SelectedIndex = 0;
-            this.tabControlContent.Size = new System.Drawing.Size(534, 414);
+            this.tabControlContent.Size = new System.Drawing.Size(534, 405);
             this.tabControlContent.TabIndex = 3;
             this.tabControlContent.SelectedIndexChanged += new System.EventHandler(this.tabControlContent_SelectedIndexChanged);
             this.tabControlContent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControlContent_MouseClick);
