@@ -37,7 +37,7 @@ namespace SearchSQL
             else
             {
                 if (MessageBox.Show(
-                    "It looks like you don't have a settings file yet.\n\nWould like to add a new one?",
+                    "It looks like you don't have a settings file yet.\n\nWould you like to add a new one?",
                     "Warning",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning) == DialogResult.Yes)
