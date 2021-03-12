@@ -14,6 +14,8 @@ Note
 =====================
 For now this application only works with SQL Server database, however, feel free to fork this repository and implement your favorite DBMS.
 
+How to use it?
+=====================
 Take a look at the Wiki page for instructions on how to use SearchSQL. 😉
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/fernando-goncalves92/SearchSQL) 
