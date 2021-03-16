@@ -22,3 +22,4 @@ Take a look at the Wiki page for instructions on how to use SearchSQL. 😉
 [![Build Status](https://img.shields.io/appveyor/ci/thiagoloureiro/netcore-jwt-integrator-extension/master.svg)](https://ci.appveyor.com/project/thiagoloureiro/netcore-jwt-integrator-extension)
 ![Net Core Version](https://img.shields.io/badge/.net%20core-3.0-blueviolet)
 ![GitHub issues](https://img.shields.io/github/issues/fernando-goncalves92/SearchSQL)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
