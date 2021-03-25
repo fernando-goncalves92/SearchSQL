@@ -16,7 +16,7 @@ For now this application only works with SQL Server database, however, feel free
 
 How to use it?
 =====================
-Take a look at the Wiki page for instructions on how to use SearchSQL. 😉
+Take a look at the [Wiki](https://github.com/fernando-goncalves92/SearchSQL/wiki) page for instructions on how to use SearchSQL. 😉
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/fernando-goncalves92/SearchSQL) 
 [![Build Status](https://img.shields.io/appveyor/ci/thiagoloureiro/netcore-jwt-integrator-extension/master.svg)](https://ci.appveyor.com/project/thiagoloureiro/netcore-jwt-integrator-extension)
